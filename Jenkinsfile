@@ -14,8 +14,6 @@ def setup_env_vars(controller_ssh_user, controller_ssh_key_path, worker_ssh_user
     env.INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET = infisical_identity_secret
     env.INFISICAL_AUTH_METHOD = 'universal_auth'
 
-    env.K8S_FORCE_RESET = params.FORCE_K8S_CLUSTER_RESET.toString()
-
     def ansible_opts_list = []
     if (params.DEBUG.toBoolean()) {
         ansible_opts_list.add('-v')
@@ -41,11 +39,6 @@ pipeline {
             name: 'SKIP_VALIDATION',
             defaultValue: false,
             description: 'Skip validation steps'
-        )
-        booleanParam(
-            name: 'FORCE_K8S_CLUSTER_RESET',
-            defaultValue: false,
-            description: 'Force reset of the Kubernetes cluster'
         )
         credentials(
             name: 'CONTROLLER_SSH_KEY',
