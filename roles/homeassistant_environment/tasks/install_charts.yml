@@ -12,7 +12,7 @@
     requested_values_templates:
       - home-k8s
 
-- name: Install home-k8s/homeassistant via helm
+- name: Install home-k8s-charts/homeassistant via helm
   kubernetes.core.helm:
     name: homeassistant
     chart_ref: home-k8s-charts/homeassistant
@@ -24,7 +24,7 @@
     update_repo_cache: true
     state: present
 
-- name: Install home-k8s/mosquitto via helm
+- name: Install home-k8s-charts/mosquitto via helm
   kubernetes.core.helm:
     name: mosquitto
     chart_ref: home-k8s-charts/mosquitto
@@ -36,7 +36,7 @@
     update_repo_cache: true
     state: present
 
-- name: Install home-k8s/zigbee2mqtt via helm
+- name: Install home-k8s-charts/zigbee2mqtt via helm
   kubernetes.core.helm:
     name: zigbee2mqtt
     chart_ref: home-k8s-charts/zigbee2mqtt
@@ -48,7 +48,7 @@
     update_repo_cache: true
     state: present
 
-- name: Install home-k8s/network via helm
+- name: Install home-k8s-charts/network via helm
   kubernetes.core.helm:
     name: network
     chart_ref: home-k8s-charts/network
