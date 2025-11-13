@@ -27,11 +27,6 @@ pipeline {
             defaultValue: false,
             description: 'Enable debug logging and display of secrets'
         )
-        booleanParam(
-            name: 'RESET_PYTHON_VENV',
-            defaultValue: false,
-            description: 'Force reset of the Python virtual environment'
-        )
         string(
             name: 'PYTHON_MASTER_ENVIRONMENT',
             defaultValue: '/opt/master-venv/bin/python3',
@@ -68,15 +63,6 @@ pipeline {
     }
 
     stages {
-        stage('reset-python-venv') {
-            when {
-                expression { return params.RESET_PYTHON_VENV.toBoolean() }
-            }
-            steps {
-                echo 'Resetting Python virtual environment...'
-                sh "rm -rf ${WORKSPACE}/.venv"
-            }
-        }
         stage('setup-environment') {
             steps {
                 echo 'Preparing environment...'
