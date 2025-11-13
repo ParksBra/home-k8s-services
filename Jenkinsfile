@@ -39,7 +39,7 @@ pipeline {
         )
         credentials(
             name: 'CONTROLLER_SSH_KEY',
-            credentialType: 'com.cloudbees.plugins.credentials.impl.SSHUserPrivateKey',
+            credentialType: 'com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey',
             description: 'SSH key for accessing the controller hosts'
         )
         string(
@@ -57,7 +57,7 @@ pipeline {
         )
         credentials(
             name: 'INFISICAL_IDENTITY',
-            credentialType: 'Username with password',
+            credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
             description: 'Infisical service identity for universal authentication'
         )
     }
