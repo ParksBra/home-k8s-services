@@ -1,11 +1,11 @@
-def setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_identity_client_id, infisical_identity_secret) {
+def setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_identity_client_id, infisical_identity_secret, infisical_project_id) {
     env.CONTROLLER_SSH_USER = controller_ssh_user
     env.CONTROLLER_SSH_KEY_PATH = controller_ssh_key_path
 
     env.DEBUG = params.DEBUG
 
-    env.INFISCAL_URL = params.INFISCAL_URL
-    env.INFISCAL_PROJECT_ID = params.INFISCAL_PROJECT_ID
+    env.INFISCAL_URL = "${params.INFISCAL_URL}:${params.INFISICAL_PORT}"
+    env.INFISCAL_PROJECT_ID = infisical_project_id
     env.INFISCAL_ENVIRONMENT = params.INFISCAL_ENVIRONMENT_SLUG
     env.INFISICAL_UNIVERSAL_AUTH_CLIENT_ID = infisical_identity_client_id
     env.INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET = infisical_identity_secret
@@ -44,21 +44,26 @@ pipeline {
         )
         string(
             name: 'INFISCAL_URL',
-            defaultValue: 'http://localhost:80'
+            defaultValue: 'http://localhost'
         )
         string(
-            name: 'INFISCAL_PROJECT_ID',
-            description: 'Infisical project ID, normally UUID'
-        )
-        string(
-            name: 'INFISCAL_ENVIRONMENT_SLUG',
-            defaultValue: 'prod',
-            description: 'Infisical environment, e.g. prod, dev, staging'
+            name: 'INFISICAL_PORT',
+            defaultValue: '80'
         )
         credentials(
             name: 'INFISICAL_IDENTITY',
             credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
             description: 'Infisical service identity for universal authentication'
+        )
+        credentials(
+            name: 'INFISCAL_PROJECT_ID',
+            credentialType: 'org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl',
+            description: 'Infisical project ID, normally UUID'
+        )
+        choice(
+            name: 'INFISCAL_ENVIRONMENT_SLUG',
+            choices: ['prod', 'dev', 'staging'],
+            description: 'Infisical environment, e.g. prod, dev, staging'
         )
     }
 
@@ -100,9 +105,13 @@ pipeline {
         }
         stage('make-cluster-services') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: params.CONTROLLER_SSH_KEY, usernameVariable: 'controller_ssh_user', keyFileVariable: 'controller_ssh_key_path'), usernamePassword(credentialsId: params.INFISICAL_IDENTITY, usernameVariable: 'infisical_identity_client_id', passwordVariable: 'infisical_identity_secret')]) {
+                withCredentials([
+                    sshUserPrivateKey(credentialsId: params.CONTROLLER_SSH_KEY, usernameVariable: 'controller_ssh_user', keyFileVariable: 'controller_ssh_key_path'),
+                    usernamePassword(credentialsId: params.INFISICAL_IDENTITY, usernameVariable: 'infisical_identity_client_id', passwordVariable: 'infisical_identity_secret'),
+                    string(credentialsId: params.INFISCAL_PROJECT_ID, variable: 'infisical_project_id')
+                    ]) {
                     echo 'Running make_cluster Ansible playbook...'
-                    setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_identity_client_id, infisical_identity_secret)
+                    setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_identity_client_id, infisical_identity_secret, infisical_project_id)
                     script {
                         sh "${WORKSPACE}/.venv/bin/ansible-playbook '${WORKSPACE}/playbooks/make_services.yml' ${ansible_opts}"
                     }
