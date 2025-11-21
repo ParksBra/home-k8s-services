@@ -23,3 +23,7 @@ persistence:
   storageClass: "{{ mosquitto_storage_class_name }}"
   size: "{{ mosquitto_data_volume_size }}"
   accessMode: ReadWriteOnce
+
+service:
+  type: ClusterIP
+  externalTrafficPolicy: ""
