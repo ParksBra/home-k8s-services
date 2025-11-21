@@ -3,6 +3,10 @@ image:
   tag: "latest"
   pullPolicy: "Always"
 
+service:
+  type: "ClusterIP"
+  port: 8080
+
 zigbee2mqtt:
   mqtt:
     server: "mqtt://{{ mosquitto_service_address }}:{{ mosquitto_mqtt_port }}"
