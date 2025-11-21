@@ -16,7 +16,6 @@ openebs_zfs_pool_device: "/dev/sda1"
 ingress_nginx_service_type: "NodePort"
 ingress_nginx_service_http_node_port: 30080
 ingress_nginx_service_https_node_port: 30443
-ingress_nginx_service_cluster_ip: "{{ k8s_service_cidr | ansible.utils.nthhost(-16) }}"
 
 k8s_kubectl_config_dir: "/home/{{ ansible_ssh_user }}/.kube"
 k8s_kubectl_config_path: "{{ k8s_kubectl_config_dir }}/config"
