@@ -31,6 +31,6 @@
                 cloudflare:
                   email: "{{ cert_manager_cloudflare_email }}"
                   apiTokenSecretRef:
-                    name: "{{ cert_manager_cloudflare_api_token_secret_name }}"
+                    name: "{{ cert_manager_cloudflare_secret_name }}"
                     key: "api-token"
     kubeconfig: "{{ k8s_kubectl_config_path }}"
