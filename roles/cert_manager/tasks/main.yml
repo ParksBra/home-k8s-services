@@ -1,5 +1,5 @@
 - name: Install cert-manager chart
-  ansible.builtin.include_task: install_cert_manager_chart.yml
+  ansible.builtin.include_tasks: install_cert_manager_chart.yml
 
 - name: Create cluster issuer for cert-manager
-  ansible.builtin.include_task: create_cluster_issuer.yml
+  ansible.builtin.include_tasks: create_cluster_issuer.yml
