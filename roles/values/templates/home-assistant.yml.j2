@@ -19,6 +19,7 @@ persistence:
   accessMode: "ReadWriteOnce"
 
 configuration:
+  enabled: true
   trusted_proxies: {{ homeassistant_trusted_proxies }}
   templateConfig: |
     {{ lookup('template', 'templates/sub_templates/homeassistant_configuration.yml.j2') | indent(4) }}
