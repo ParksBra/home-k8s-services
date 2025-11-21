@@ -20,6 +20,8 @@ ingress_nginx_service_https_node_port: 30443
 k8s_kubectl_config_dir: "/home/{{ ansible_ssh_user }}/.kube"
 k8s_kubectl_config_path: "{{ k8s_kubectl_config_dir }}/config"
 
+zigbee2mqtt_radio_product_id: "ea60"
+zigbee2mqtt_radio_vendor_id: "10c4"
 akri_udev_instance_name: "zigbee2mqtt-radio"
 akri_udev_discovery_rules_list:
   - '''ATTRS{idVendor}=="{{ zigbee2mqtt_radio_vendor_id }}", ATTRS{idProduct}=="{{ zigbee2mqtt_radio_product_id }}"'''

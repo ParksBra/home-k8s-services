@@ -5,13 +5,6 @@
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     force_update: true
 
-- name: Create values file
-  ansible.builtin.include_role:
-    name: values
-  vars:
-    requested_values_templates:
-      - home-assistant
-
 - name: Get cidrs from k8s cluster
   block:
     - name: Retrieve kubeadm configmap
@@ -36,6 +29,13 @@
     - name: Concat into fact
       set_fact:
         homeassistant_trusted_proxies: "{{ k8s_service_cidrs + k8s_pod_network_cidrs + general_trusted_proxies }}"
+
+- name: Create values file
+  ansible.builtin.include_role:
+    name: values
+  vars:
+    requested_values_templates:
+      - home-assistant
 
 - name: Create storage components
   ansible.builtin.include_tasks: create_homeassistant_storage_components.yml
