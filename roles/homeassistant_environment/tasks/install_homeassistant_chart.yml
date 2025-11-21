@@ -23,7 +23,8 @@
     - name: Set k8s_service_cidrs fact
       set_fact:
         k8s_service_cidrs: "{{ k8s_service_cidr_info.resources[0].spec.cidrs }}"
-        k8s_pod_network_cidrs: "{{ k8s_node_info.resources | map(attribute='spec.podCIDR') | list }}"
+        # k8s_pod_network_cidrs: "{{ k8s_node_info.resources | map(attribute='spec.podCIDR') | list }}"
+        k8s_pod_network_cidrs: ["10.244.0.0/16"]
         general_trusted_proxies: ["127.0.0.0/8"]
     
     - name: Concat into fact
