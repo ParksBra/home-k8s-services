@@ -8,9 +8,8 @@
         name: "{{ cert_manager_cloudflare_secret_name }}"
         namespace: "{{ cert_manager_namespace }}"
       type: Opaque
-      stringData: {
-        "{{ cert_manager_cloudflare_secret_key }}": "{{ cert_manager_cloudflare_api_token }}"
-      }
+      stringData:
+        api-token: "{{ cert_manager_cloudflare_api_token }}"
     kubeconfig: "{{ k8s_kubectl_config_path }}"
 
 - name: Create cluster issuer for cert-manager
@@ -33,5 +32,5 @@
                   email: "{{ cert_manager_cloudflare_email }}"
                   apiTokenSecretRef:
                     name: "{{ cert_manager_cloudflare_api_token_secret_name }}"
-                    key: "{{ cert_manager_cloudflare_secret_key }}"
+                    key: "api-token"
     kubeconfig: "{{ k8s_kubectl_config_path }}"
