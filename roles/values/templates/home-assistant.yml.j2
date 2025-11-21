@@ -108,16 +108,16 @@ service:
   type: "ClusterIP"
   port: {{ homeassistant_service_port }}
 
-additionalServices:
+{# additionalServices:
   - name: "tailscale"
     type: "LoadBalancer"
     loadBalancerClass: "tailscale"
     port: {{ homeassistant_service_port }}
     targetPort: http
-    protocol: TCP
+    protocol: TCP #}
 
 ingress:
-  enabled: false
+  enabled: true
   className: "nginx"
   annotations:
     cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer_name }}"

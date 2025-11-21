@@ -1,6 +1,10 @@
 controller:
   service:
-    type: "{{ ingress_nginx_service_type }}"
-    nodePorts:
-      http: "{{ ingress_nginx_service_http_node_port }}"
-      https: "{{ ingress_nginx_service_https_node_port }}"
+    type: "LoadBalancer"
+    loadBalancerClass: "tailscale"
+    ports:
+      http: 80
+      https: 443
+    targetPorts:
+      http: http
+      https: https
