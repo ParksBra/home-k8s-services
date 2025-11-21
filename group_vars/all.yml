@@ -33,6 +33,7 @@ homeassistant_storage_reclaim_policy: "Retain"
 homeassistant_storage_zfs_pool_name: "{{ openebs_zfs_pool_name }}"
 homeassistant_data_volume_size: "64Gi"
 homeassistant_codeserver_auth_secret_name: "homeassistant-codeserver-auth"
+homeassistant_ingress_tls_secret: "homeassistant-ingress-tls"
 
 homeassistant_service_port: 8123
 homeassistant_ingress_domain: "home.parkl.ee"
