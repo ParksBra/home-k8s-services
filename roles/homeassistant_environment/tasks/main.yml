@@ -9,3 +9,6 @@
 
 - name: Install mosquitto chart
   ansible.builtin.include_tasks: mosquitto.yml
+
+- name: Install zigbee2mqtt chart
+  ansible.builtin.include_tasks: zigbee2mqtt.yml

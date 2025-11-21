@@ -1,0 +1,25 @@
+- name: Add zigbee2mqtt repo to helm
+  kubernetes.core.helm_repository:
+    name: zigbee2mqtt
+    repo_url: https://charts.zigbee2mqtt.io
+    kubeconfig: "{{ k8s_kubectl_config_path }}"
+    force_update: true
+
+- name: Create values file
+  ansible.builtin.include_role:
+    name: values
+  vars:
+    requested_values_templates:
+      - zigbee2mqtt
+
+- name: Install zigbee2mqtt via helm
+  kubernetes.core.helm:
+    name: zigbee2mqtt
+    chart_ref: zigbee2mqtt/zigbee2mqtt
+    namespace: "{{ homeassistant_namespace }}"
+    create_namespace: true
+    kubeconfig: "{{ k8s_kubectl_config_path }}"
+    values_files:
+      - "{{ helm_values_temp_file }}"
+    update_repo_cache: true
+    state: present

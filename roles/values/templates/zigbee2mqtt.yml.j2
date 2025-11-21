@@ -1,0 +1,25 @@
+image:
+  repository: koenkk/zigbee2mqtt
+  tag: "latest"
+  pullPolicy: "Always"
+
+zigbee2mqtt:
+  mqtt:
+    server: "mqtt://{{ mosquitto_service_address }}:{{ mosquitto_mqtt_port }}"
+    user: "{{ mosquitto_username }}"
+    password: "{{ mosquitto_password }}"
+
+ingress:
+  enabled: true
+  ingressClassName: "nginx"
+  hosts:
+    - host: "{{ zigbee2mqtt_ingress_domain }}"
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+        - path: /api
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: "{{ homeassistant_ingress_tls_secret }}"
+      hosts:
+        - "{{ zigbee2mqtt_ingress_domain }}"

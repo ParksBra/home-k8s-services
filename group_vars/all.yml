@@ -50,6 +50,12 @@ cert_manager_namespace: "cert-manager"
 
 mosquitto_storage_class_name: "{{ homeassistant_storage_class_name }}"
 mosquitto_data_volume_size: "8Gi"
+mosquitto_username: "admin"
+mosquitto_password_secret_name: "mosquitto-account-password"
+mosquitto_password: "{{ lookup('infisical.vault.read_secrets', secret_name=mosquitto_password_secret_name, path='/', project_id=infiscal_project_id, env_slug=infiscal_environment_slug, url=infiscal_url).value }}"
+mosquitto_password_hashed: "{{ mosquitto_password | mosquitto_passwd }}"
+mosquitto_service_address: "mosquitto.{{ homeassistant_namespace }}.svc.cluster.local"
+mosquitto_mqtt_port: 1883
 
 # nginx_user: "nginx"
 # nginx_group: "nginx"
@@ -76,14 +82,11 @@ mosquitto_data_volume_size: "8Gi"
 # mosquitto_websocket_node_port: 30001
 # mosquitto_mqtts_port: 8883
 # mosquitto_mqtt_port: 1883
-mosquitto_username: "admin"
-mosquitto_password_secret_name: "mosquitto-account-password"
-mosquitto_password: "{{ lookup('infisical.vault.read_secrets', secret_name=mosquitto_password_secret_name, path='/', project_id=infiscal_project_id, env_slug=infiscal_environment_slug, url=infiscal_url).value | mosquitto_passwd }}"
 # mosquitto_data_volume_size: "8Gi"
 
 # zigbee2mqtt_service_port: 8080
 # zigbee2mqtt_service_node_port: 30234
-# zigbee2mqtt_sub_domain: "z2m.{{ homeassistant_sub_domain }}"
+zigbee2mqtt_ingress_domain: "z2m.{{ homeassistant_ingress_domain }}"
 # zigbee2mqtt_radio_vendor_id: "10c4"
 # zigbee2mqtt_radio_product_id: "ea60"
 # zigbee2mqtt_data_volume_size: "16Gi"

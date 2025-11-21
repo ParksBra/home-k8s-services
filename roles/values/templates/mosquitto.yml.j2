@@ -8,7 +8,7 @@ image:
 
 authentication:
   passwordEntries: |-
-    {{ mosquitto_username }}:{{ mosquitto_password }}
+    {{ mosquitto_username }}:{{ mosquitto_password_hashed }}
 
 config: |
   persistence true
@@ -27,3 +27,7 @@ persistence:
 service:
   type: ClusterIP
   externalTrafficPolicy: ""
+
+ports:
+  mqtt:
+    port: {{ mosquitto_mqtt_port }}
