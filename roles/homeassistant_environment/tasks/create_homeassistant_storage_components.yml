@@ -15,5 +15,4 @@
       reclaimPolicy: "{{ homeassistant_storage_reclaim_policy }}"
       provisioner: zfs.csi.openebs.io
       volumeBindingMode: WaitForFirstConsumer
-  kubeconfig: "{{ k8s_kubectl_config_path }}"
-  ignore_errors: true
+    kubeconfig: "{{ k8s_kubectl_config_path }}"
