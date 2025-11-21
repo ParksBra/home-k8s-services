@@ -6,3 +6,6 @@
 
 - name: Create k8s secrets for homeassistant
   ansible.builtin.include_tasks: create_secrets.yml
+
+- name: Install mosquitto chart
+  ansible.builtin.include_tasks: mosquitto.yml

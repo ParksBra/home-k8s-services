@@ -1,0 +1,25 @@
+replicaCount: 1
+strategyType: Recreate
+
+image:
+  repository: eclipse-mosquitto
+  tag: "latest"
+  pullPolicy: Always
+
+authentication:
+  passwordEntries: |-
+    {{ mosquitto_username }}:{{ mosquitto_password }}
+
+config: |
+  persistence true
+  persistence_location /mosquitto/data/
+  log_dest stdout
+  listener 1883
+  listener 9090
+  protocol websockets
+
+persistence:
+  enabled: true
+  storageClass: "{{ mosquitto_storage_class_name }}"
+  size: "{{ mosquitto_data_volume_size }}"
+  accessMode: ReadWriteOnce

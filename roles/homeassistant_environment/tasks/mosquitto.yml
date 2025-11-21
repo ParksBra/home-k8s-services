@@ -1,0 +1,25 @@
+- name: Add t3n mosquitto repo to helm
+  kubernetes.core.helm_repository:
+    name: t3n
+    repo_url: https://storage.googleapis.com/t3n-helm-charts
+    kubeconfig: "{{ k8s_kubectl_config_path }}"
+    force_update: true
+
+- name: Create values file
+  ansible.builtin.include_role:
+    name: values
+  vars:
+    requested_values_templates:
+      - mosquitto
+
+- name: Install t3n/mosquitto via helm
+  kubernetes.core.helm:
+    name: mosquitto
+    chart_ref: t3n/mosquitto
+    namespace: "{{ homeassistant_namespace }}"
+    create_namespace: true
+    kubeconfig: "{{ k8s_kubectl_config_path }}"
+    values_files:
+      - "{{ helm_values_temp_file }}"
+    update_repo_cache: true
+    state: present
