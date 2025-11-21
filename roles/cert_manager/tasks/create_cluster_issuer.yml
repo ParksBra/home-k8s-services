@@ -33,4 +33,4 @@
                   apiTokenSecretRef:
                     name: "{{ cert_manager_cloudflare_api_token_secret_name }}"
                     key: "{{ cert_manager_cloudflare_secret_key }}"
-  kubeconfig: "{{ k8s_kubectl_config_path }}"
+    kubeconfig: "{{ k8s_kubectl_config_path }}"
