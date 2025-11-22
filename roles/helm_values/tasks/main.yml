@@ -2,11 +2,13 @@
   ansible.builtin.file:
     path: "{{ temp_directory }}/values_fragments"
     state: absent
+  changed_when: false
 
 - name: Create temporary directory for helm chart values fragments
   ansible.builtin.file:
     path: "{{ temp_directory }}/values_fragments"
     state: directory
+  changed_when: false
 
 - name: Create requested template values values_files
   ansible.builtin.template:
@@ -19,6 +21,7 @@
   ansible.builtin.file:
     path: "{{ helm_values_temp_file }}"
     state: absent
+  changed_when: false
 
 - name: Assemble fragments
   ansible.builtin.assemble:

@@ -26,6 +26,6 @@ ingress:
         - path: /api
           pathType: ImplementationSpecific
   tls:
-    - secretName: "{{ homeassistant_ingress_tls_secret }}"
+    - secretName: "{{ homeassistantenv_ingress_tls_secret }}"
       hosts:
         - "{{ zigbee2mqtt_ingress_domain }}"

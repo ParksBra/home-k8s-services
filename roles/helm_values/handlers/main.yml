@@ -2,7 +2,7 @@
   ansible.builtin.file:
     path: "{{ helm_values_temp_file }}"
     state: absent
-  listen: helm_cleanup_values_file 
+  listen: helm_cleanup_values_file
 
 - name: Remove temporary values fragments for helm chart
   ansible.builtin.file:

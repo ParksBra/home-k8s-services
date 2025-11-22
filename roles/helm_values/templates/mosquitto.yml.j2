@@ -9,20 +9,23 @@ image:
 authentication:
   passwordEntries: |-
     {{ mosquitto_username }}:{{ mosquitto_password_hashed }}
+  passwordFilePath: "/etc/mosquitto/passwordfile"
 
 config: |
   persistence true
   persistence_location /mosquitto/data/
   log_dest stdout
-  listener 1883
-  listener 9090
+  listener {{ mosquitto_mqtt_port }}
+  protocol mqtt
+  listener {{ mosquitto_websocket_port }}
   protocol websockets
 
 persistence:
   enabled: true
   storageClass: "{{ mosquitto_storage_class_name }}"
   size: "{{ mosquitto_data_volume_size }}"
-  accessMode: ReadWriteOnce
+  accessMode: "ReadWriteOnce"
+  mountPath: "/mosquitto/data"
 
 service:
   type: ClusterIP
@@ -31,3 +34,7 @@ service:
 ports:
   mqtt:
     port: {{ mosquitto_mqtt_port }}
+    protocol: "TCP"
+  websockets:
+    port: {{ mosquitto_websocket_port }}
+    protocol: "TCP"

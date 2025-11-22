@@ -33,14 +33,6 @@ service:
   type: "ClusterIP"
   port: {{ homeassistant_service_port }}
 
-{# additionalServices:
-  - name: "tailscale"
-    type: "LoadBalancer"
-    loadBalancerClass: "tailscale"
-    port: {{ homeassistant_service_port }}
-    targetPort: http
-    protocol: TCP #}
-
 ingress:
   enabled: true
   className: "nginx"

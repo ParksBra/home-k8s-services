@@ -7,7 +7,7 @@
 
 - name: Create values file
   ansible.builtin.include_role:
-    name: values
+    name: helm_values
   vars:
     requested_values_templates:
       - zigbee2mqtt

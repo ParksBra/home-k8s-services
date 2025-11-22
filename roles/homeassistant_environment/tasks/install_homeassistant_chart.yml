@@ -5,35 +5,9 @@
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     force_update: true
 
-- name: Get cidrs from k8s cluster
-  block:
-    - name: Retrieve kubeadm configmap
-      kubernetes.core.k8s_info:
-        kind: "ServiceCIDR"
-        name: "kubernetes"
-        kubeconfig: "{{ k8s_kubectl_config_path }}"
-      register: k8s_service_cidr_info
-
-    - name: Get pod network cidrs from k8s cluster
-      kubernetes.core.k8s_info:
-        kind: "Node"
-        kubeconfig: "{{ k8s_kubectl_config_path }}"
-      register: k8s_node_info
-
-    - name: Set k8s_service_cidrs fact
-      set_fact:
-        k8s_service_cidrs: "{{ k8s_service_cidr_info.resources[0].spec.cidrs }}"
-        # k8s_pod_network_cidrs: "{{ k8s_node_info.resources | map(attribute='spec.podCIDR') | list }}"
-        k8s_pod_network_cidrs: ["10.244.0.0/16"]
-        general_trusted_proxies: ["127.0.0.0/8"]
-
-    - name: Concat into fact
-      set_fact:
-        homeassistant_trusted_proxies: "{{ k8s_service_cidrs + k8s_pod_network_cidrs + general_trusted_proxies }}"
-
 - name: Create values file
   ansible.builtin.include_role:
-    name: values
+    name: helm_values
   vars:
     requested_values_templates:
       - home-assistant
