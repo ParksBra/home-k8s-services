@@ -18,10 +18,6 @@ k8s_service_dns_domain: "cluster.local"
 k8s_kubectl_config_dir: "/home/{{ ansible_ssh_user }}/.kube"
 k8s_kubectl_config_path: "{{ k8s_kubectl_config_dir }}/config"
 
-homeassistantenv_namespace: "home-assistant"
-homeassistantenv_parent_domain: "home.parkl.ee"
-homeassistantenv_ingress_tls_secret: "homeassistant-ingress-tls"
-
 kubernetes_dashboard_namespace: "kubernetes-dashboard"
 kubernetes_dashboard_ingress_domain: "k8s.{{ homeassistantenv_parent_domain }}"
 
@@ -33,10 +29,14 @@ akri_udev_discovery_rules_list:
   - '''ATTRS{idVendor}=="{{ akri_zigbee_radio_vendor_id }}", ATTRS{idProduct}=="{{ akri_zigbee_radio_product_id }}"'''
 akri_udev_discovery_group_recursive: true
 
+homeassistantenv_namespace: "home-assistant"
+homeassistantenv_parent_domain: "home.parkl.ee"
+homeassistantenv_ingress_tls_secret: "homeassistant-ingress-tls"
+
 homeassistant_namespace: "{{ homeassistantenv_namespace }}"
 homeassistant_storage_class_name: "homeassistant-zfs-sc"
-homeassistant_storage_reclaim_policy: "Retain"
-homeassistant_storage_zfs_pool_name: "{{ openebs_zfs_pool_name }}"
+homeassistant_storage_class_pool_name: "zfspv-pool"
+homeassistant_storage_class_reclaim_policy: "Retain"
 homeassistant_data_volume_size: "64Gi"
 homeassistant_codeserver_enabled: true
 homeassistant_codeserver_service_port: 12123

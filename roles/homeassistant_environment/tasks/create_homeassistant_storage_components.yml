@@ -11,8 +11,8 @@
         compression: "off"
         dedup: "off"
         fstype: "zfs"
-        poolname: "{{ homeassistant_storage_zfs_pool_name }}"
-      reclaimPolicy: "{{ homeassistant_storage_reclaim_policy }}"
+        poolname: "{{ homeassistant_storage_class_pool_name }}"
+      reclaimPolicy: "{{ homeassistant_storage_class_reclaim_policy }}"
       provisioner: zfs.csi.openebs.io
       volumeBindingMode: WaitForFirstConsumer
     kubeconfig: "{{ k8s_kubectl_config_path }}"
