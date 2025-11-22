@@ -25,7 +25,6 @@ homeassistantenv_ingress_tls_secret: "homeassistant-ingress-tls"
 kubernetes_dashboard_namespace: "kubernetes-dashboard"
 kubernetes_dashboard_ingress_domain: "k8s.{{ homeassistantenv_parent_domain }}"
 
-
 akri_namespace: "akri"
 akri_zigbee_radio_product_id: "ea60"
 akri_zigbee_radio_vendor_id: "10c4"
