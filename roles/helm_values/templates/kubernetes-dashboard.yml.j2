@@ -2,18 +2,15 @@ app:
   ingress:
     enabled: true
     hosts:
-      # Keep 'localhost' host only if you want to access Dashboard using 'kubectl port-forward ...' on:
-      # https://localhost:8443
-      - k8s.{{ homeassistant_ingress_domain }}
-    # - kubernetes.dashboard.domain.com
+      - "{{ kubernetes_dashboard_ingress_domain }}"
     ingressClassName: "nginx"
     useDefaultIngressClass: false
     useDefaultAnnotations: true
-    pathType: ImplementationSpecific
-    path: /
+    pathType: "ImplementationSpecific"
+    path: "/"
     issuer:
-      name: {{ cert_manager_cluster_issuer_name }}
-      scope: cluster
+      name: "{{ cert_manager_cluster_issuer_name }}"
+      scope: "cluster"
     tls:
       enabled: true
-      secretName: "{{ homeassistant_ingress_tls_secret }}"
+      secretName: "{{ homeassistantenv_ingress_tls_secret }}"

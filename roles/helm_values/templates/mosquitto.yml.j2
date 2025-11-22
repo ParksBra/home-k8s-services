@@ -1,10 +1,10 @@
 replicaCount: 1
-strategyType: Recreate
+strategyType: "Recreate"
 
 image:
-  repository: eclipse-mosquitto
+  repository: "eclipse-mosquitto"
   tag: "latest"
-  pullPolicy: Always
+  pullPolicy: "Always"
 
 authentication:
   passwordEntries: |-
@@ -28,7 +28,7 @@ persistence:
   mountPath: "/mosquitto/data"
 
 service:
-  type: ClusterIP
+  type: "ClusterIP"
   externalTrafficPolicy: ""
 
 ports:

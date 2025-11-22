@@ -1,3 +1,18 @@
+controller:
+  enabled: true
+  image:
+    repository: "ghcr.io/project-akri/akri/controller"
+    tag: "latest"
+    pullPolicy: "Always"
+
+agent:
+  enabled: true
+  image:
+    repository: "ghcr.io/project-akri/akri/agent"
+    fullRepository: ghcr.io/project-akri/akri/agent-full
+    tag: "latest"
+    pullPolicy: "Always"
+
 udev:
   configuration:
     enabled: true
@@ -10,4 +25,5 @@ udev:
 {% endfor %}
   discovery:
     enabled: true
-kubernetesDistro: k8s
+
+kubernetesDistro: "k8s"

@@ -5,7 +5,7 @@ image:
 
 service:
   type: "ClusterIP"
-  port: 8080
+  port: {{ zigbee2mqtt_service_port }}
 
 zigbee2mqtt:
   mqtt:
@@ -21,10 +21,10 @@ ingress:
   hosts:
     - host: "{{ zigbee2mqtt_ingress_domain }}"
       paths:
-        - path: /
-          pathType: ImplementationSpecific
-        - path: /api
-          pathType: ImplementationSpecific
+        - path: "/"
+          pathType: "ImplementationSpecific"
+        - path: "/api"
+          pathType: "ImplementationSpecific"
   tls:
     - secretName: "{{ homeassistantenv_ingress_tls_secret }}"
       hosts:
