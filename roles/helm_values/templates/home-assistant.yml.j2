@@ -71,6 +71,6 @@ addons:
             - path: "/"
               pathType: "ImplementationSpecific"
       tls:
-        - secretName: "{{ homeassistantenv_ingress_tls_secret }}"
+        - secretName: "{{ homeassistant_codeserver_ingress_tls_secret }}"
           hosts:
             - "{{ homeassistant_codeserver_ingress_domain }}"

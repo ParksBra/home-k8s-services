@@ -42,6 +42,7 @@ homeassistant_data_volume_size: "64Gi"
 homeassistant_codeserver_enabled: true
 homeassistant_codeserver_service_port: 12123
 homeassistant_codeserver_ingress_domain: "code.{{ homeassistant_ingress_domain }}"
+homeassistant_codeserver_ingress_tls_secret: "homeassistant-codeserver-ingress-tls"
 homeassistant_codeserver_auth_secret_name: "homeassistant-codeserver-auth"
 homeassistant_trusted_proxies:
   - "{{ k8s_service_cidr }}"
