@@ -16,7 +16,7 @@
   kubernetes.core.helm:
     name: kubernetes-dashboard
     chart_ref: kubernetes-dashboard/kubernetes-dashboard
-    namespace: kubernetes-dashboard
+    namespace: "{{ kubernetes_dashboard_namespace }}"
     create_namespace: true
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     values_files:

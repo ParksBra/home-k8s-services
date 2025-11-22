@@ -16,7 +16,7 @@
   kubernetes.core.helm:
     name: akri
     chart_ref: akri/akri
-    namespace: akri
+    namespace: "{{ akri_namespace }}"
     create_namespace: true
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     values_files:

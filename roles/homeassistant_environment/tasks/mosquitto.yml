@@ -16,7 +16,7 @@
   kubernetes.core.helm:
     name: mosquitto
     chart_ref: t3n/mosquitto
-    namespace: "{{ homeassistant_namespace }}"
+    namespace: "{{ mosquitto_namespace }}"
     create_namespace: true
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     values_files:
