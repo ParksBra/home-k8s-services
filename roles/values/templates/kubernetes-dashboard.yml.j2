@@ -6,7 +6,7 @@ app:
       # https://localhost:8443
       - k8s.{{ homeassistant_ingress_domain }}
     # - kubernetes.dashboard.domain.com
-    ingressClassName: internal-nginx
+    ingressClassName: "nginx"
     useDefaultIngressClass: false
     useDefaultAnnotations: true
     pathType: ImplementationSpecific
