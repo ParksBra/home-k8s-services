@@ -12,6 +12,8 @@ zigbee2mqtt:
     server: "mqtt://{{ mosquitto_service_address }}:{{ mosquitto_mqtt_port }}"
     user: "{{ mosquitto_username }}"
     password: "{{ mosquitto_password }}"
+  serial:
+    port: null  # e.g. /dev/ttyACM0
 
 ingress:
   enabled: true
