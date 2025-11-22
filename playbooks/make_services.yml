@@ -2,7 +2,6 @@
   roles:
     - {role: kubernetes_dashboard, tags: ['kubernetes_dashboard']}
     - {role: cert_manager, tags: ['cert_manager']}
-    - {role: ingress_nginx, tags: ['ingress_nginx']}
     - {role: akri, tags: ['akri']}
     - {role: homeassistant_environment, tags: ['homeassistant_environment']}
   become: true
