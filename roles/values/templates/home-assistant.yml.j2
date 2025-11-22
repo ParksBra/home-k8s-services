@@ -55,7 +55,6 @@ ingress:
     - secretName: "{{ homeassistant_ingress_tls_secret }}"
       hosts:
         - "{{ homeassistant_ingress_domain }}"
-        - "*.{{ homeassistant_ingress_domain }}"
 
 addons:
   codeserver:
@@ -69,4 +68,17 @@ addons:
     service:
       type: "ClusterIP"
       port: 12123
-      
+    ingress:
+      enabled: true
+      className: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer_name }}"
+      hosts:
+        - host: "code.{{ homeassistant_ingress_domain }}"
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: "{{ homeassistant_ingress_tls_secret }}"
+          hosts:
+            - "code.{{ homeassistant_ingress_domain }}"
