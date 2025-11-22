@@ -20,6 +20,7 @@ k8s_kubectl_config_path: "{{ k8s_kubectl_config_dir }}/config"
 
 kubernetes_dashboard_namespace: "kubernetes-dashboard"
 kubernetes_dashboard_ingress_domain: "k8s.{{ homeassistantenv_parent_domain }}"
+kubernetes_dashboard_ingress_tls_secret: "kubernetes-dashboard-ingress-tls"
 
 akri_namespace: "akri"
 akri_zigbee_radio_product_id: "ea60"
@@ -72,4 +73,5 @@ mosquitto_websocket_port: 9001
 
 zigbee2mqtt_namespace: "{{ homeassistantenv_namespace }}"
 zigbee2mqtt_ingress_domain: "z2m.{{ homeassistantenv_parent_domain }}"
+zigbee2mqtt_ingress_tls_secret: "zigbee2mqtt-ingress-tls"
 zigbee2mqtt_service_port: 8080
