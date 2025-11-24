@@ -44,7 +44,7 @@ ingress:
         - path: "/"
           pathType: "ImplementationSpecific"
   tls:
-    - secretName: "{{ homeassistantenv_ingress_tls_secret }}"
+    - secretName: "{{ homeassistant_ingress_tls_secret }}"
       hosts:
         - "{{ homeassistant_ingress_domain }}"
 
