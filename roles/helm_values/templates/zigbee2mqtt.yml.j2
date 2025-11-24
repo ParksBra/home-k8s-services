@@ -19,7 +19,7 @@ ingress:
   enabled: true
   ingressClassName: "{{ cluster_primary_ingress_class_name }}"
   annotations:
-  {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(2) }}
+  {{ cluster_ingress_default_annotations | to_yaml(indent=2) | indent(2) }}
   hosts:
     - host: "{{ zigbee2mqtt_ingress_domain }}"
       paths:

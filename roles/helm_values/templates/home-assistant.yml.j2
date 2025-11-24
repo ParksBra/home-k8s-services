@@ -37,7 +37,7 @@ ingress:
   enabled: true
   className: "{{ cluster_ingress_primary_class_name }}"
   annotations:
-    {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(4) }}
+    {{ cluster_ingress_default_annotations | to_yaml(indent=2) | indent(4) }}
   hosts:
     - host: "{{ homeassistant_ingress_domain }}"
       paths:
@@ -64,7 +64,7 @@ addons:
       enabled: true
       className: "{{ cluster_ingress_primary_class_name }}"
       annotations:
-      {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(6) }}
+      {{ cluster_ingress_default_annotations | to_yaml(indent=2) | indent(6) }}
       hosts:
         - host: "{{ homeassistant_codeserver_ingress_domain }}"
           paths:
