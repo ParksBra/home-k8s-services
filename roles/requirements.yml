@@ -3,4 +3,3 @@ collections:
   - name: infisical.vault
   - name: kubernetes.core
   - name: community.general
-  - name: community.general.terraform
