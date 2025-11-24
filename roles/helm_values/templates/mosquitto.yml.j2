@@ -15,9 +15,7 @@ config: |
   persistence true
   persistence_location /mosquitto/data/
   log_dest stdout
-  log_type debug
   listener {{ mosquitto_mqtt_port }}
-  protocol mqtt
   listener {{ mosquitto_websocket_port }}
   protocol websockets
 
