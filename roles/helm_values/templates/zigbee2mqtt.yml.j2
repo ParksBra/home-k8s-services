@@ -13,7 +13,7 @@ zigbee2mqtt:
     user: "{{ mosquitto_username }}"
     password: "{{ mosquitto_password }}"
   serial:
-    port: "$AKRI_ZIGBEE_RADIO_UDEV_DEVNODE_5"  # e.g. /dev/ttyACM0
+    port: "/dev/ttyUSB0"  # e.g. /dev/ttyACM0
     adapter: "ember"
 
 ingress:
