@@ -12,6 +12,10 @@ agent:
     fullRepository: "{{ akri_agent_full_image_repository }}"
     tag: "{{ akri_agent_image_tag }}"
     pullPolicy: "{{ akri_agent_image_pull_policy }}"
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
 
 udev:
   configuration:
