@@ -1,0 +1,11 @@
+- name: Install homeassistant
+  ansible.builtin.include_role:
+    name: homeassistant
+
+- name: Install mosquitto
+  ansible.builtin.include_role:
+    name: mosquitto
+
+- name: Install zigbee2mqtt
+  ansible.builtin.include_role:
+    name: zigbee2mqtt

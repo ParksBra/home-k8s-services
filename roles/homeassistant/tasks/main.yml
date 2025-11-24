@@ -1,0 +1,5 @@
+- name: Install homeassistant
+  ansible.builtin.include_tasks: install_homeassistant_chart.yml
+
+- name: Create storage components for homeassistant
+  ansible.builtin.include_tasks: create_homeassistant_storage_components.yml

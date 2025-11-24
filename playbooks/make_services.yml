@@ -3,6 +3,6 @@
     - {role: kubernetes_dashboard, tags: ['kubernetes_dashboard']}
     - {role: cert_manager, tags: ['cert_manager']}
     - {role: akri, tags: ['akri']}
-    - {role: homeassistant_environment, tags: ['homeassistant_environment']}
+    - {role: homeassistantenv, tags: ['homeassistantenv']}
   become: true
   become_user: root

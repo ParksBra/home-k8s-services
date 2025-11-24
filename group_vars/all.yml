@@ -45,9 +45,10 @@ akri_udev_discovery_rules_list:
   - '''ATTRS{idVendor}=="{{ akri_zigbee_radio_vendor_id }}", ATTRS{idProduct}=="{{ akri_zigbee_radio_product_id }}"'''
 akri_udev_discovery_group_recursive: true
 
-homeassistantenv_namespace: "home-assistant"
-homeassistantenv_parent_domain: "home.parkl.ee"
-homeassistantenv_ingress_tls_secret: "homeassistant-ingress-tls"
+parent_domain: "parkl.ee"
+
+homeassistantenv_namespace: "homeassistant"
+homeassistantenv_parent_domain: "home.{{ parent_domain }}"
 
 homeassistant_image_repository: "ghcr.io/home-assistant/home-assistant"
 homeassistant_image_tag: "latest"
@@ -71,6 +72,7 @@ homeassistant_trusted_proxies:
   - "127.0.0.0/8"
 homeassistant_service_port: 8123
 homeassistant_ingress_domain: "{{ homeassistantenv_parent_domain }}"
+homeassistant_ingress_tls_secret: "homeassistant-ingress-tls"
 
 cert_manager_image_repository: "quay.io/jetstack/cert-manager-controller"
 cert_manager_image_tag: "latest"
