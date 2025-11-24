@@ -15,11 +15,6 @@
 - name: Create storage components
   ansible.builtin.include_tasks: create_homeassistant_storage_components.yml
 
-- name: pause for 2 minutes for debug check
-  ansible.builtin.pause:
-    minutes: 2
-    prompt: "Paused for 2 minutes to allow for debug"
-
 - name: Install pajikos/home-assistant via helm
   kubernetes.core.helm:
     name: home-assistant
