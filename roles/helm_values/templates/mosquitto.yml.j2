@@ -16,6 +16,7 @@ config: |
   persistence_location /mosquitto/data/
   log_dest stdout
   listener {{ mosquitto_mqtt_port }}
+  protocol mqtt
   listener {{ mosquitto_websocket_port }}
   protocol websockets
 
@@ -34,6 +35,6 @@ ports:
   mqtt:
     port: {{ mosquitto_mqtt_port }}
     protocol: "TCP"
-  websockets:
+  websocket:
     port: {{ mosquitto_websocket_port }}
     protocol: "TCP"
