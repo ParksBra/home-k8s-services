@@ -10,14 +10,14 @@
     name: helm_values
   vars:
     requested_values_templates:
-      - home-assistant
+      - homeassistant
 
 - name: Create storage components
   ansible.builtin.include_tasks: create_homeassistant_storage_components.yml
 
 - name: Install pajikos/home-assistant via helm
   kubernetes.core.helm:
-    name: home-assistant
+    name: homeassistant
     chart_ref: pajikos/home-assistant
     namespace: "{{ homeassistant_namespace }}"
     create_namespace: true
