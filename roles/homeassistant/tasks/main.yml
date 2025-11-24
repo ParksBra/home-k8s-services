@@ -12,9 +12,6 @@
     requested_values_templates:
       - homeassistant
 
-- name: Create storage components
-  ansible.builtin.include_tasks: create_homeassistant_storage_components.yml
-
 - name: Install pajikos/home-assistant via helm
   kubernetes.core.helm:
     name: homeassistant
@@ -26,3 +23,6 @@
       - "{{ helm_values_temp_file }}"
     update_repo_cache: true
     state: present
+
+- name: Create storage components
+  ansible.builtin.include_tasks: create_homeassistant_storage_components.yml
