@@ -1,1 +1,7 @@
 requested_values_templates: []
+
+temp_directory: "/tmp/ansible_home"
+working_directory: "{{ temp_directory }}/values_fragments"
+
+final_values_file: "helm_values{{ '' if not final_values_file_identifer else '_' + final_values_file_identifer }}.yml"
+final_values_file_path: "{{ temp_directory }}/{{ final_values_file }}"

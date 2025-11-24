@@ -1,32 +1,32 @@
 - name: Clear existing requested template values files
   ansible.builtin.file:
-    path: "{{ temp_directory }}/values_fragments"
+    path: "{{ working_directory }}"
     state: absent
   changed_when: false
 
 - name: Create temporary directory for helm chart values fragments
   ansible.builtin.file:
-    path: "{{ temp_directory }}/values_fragments"
+    path: "{{ working_directory }}"
     state: directory
   changed_when: false
 
 - name: Create requested template values values_files
   ansible.builtin.template:
     src: "templates/{{ item }}.yml.j2"
-    dest: "{{ temp_directory }}/values_fragments/{{ item }}.yml"
+    dest: "{{ working_directory }}/{{ item }}.yml"
   loop: "{{ requested_values_templates }}"
   notify: helm_cleanup_values_fragments
 
-- name: Clear existing assembled values files
+- name: Clear existing assembled values file
   ansible.builtin.file:
-    path: "{{ helm_values_temp_file }}"
+    path: "{{ final_values_file_path }}"
     state: absent
   changed_when: false
 
 - name: Assemble fragments
   ansible.builtin.assemble:
-    src: "{{ temp_directory }}/values_fragments/"
+    src: "{{ working_directory }}"
     remote_src: true
-    dest: "{{ helm_values_temp_file }}"
+    dest: "{{ final_values_file_path }}"
     delimiter: "\n"
   notify: helm_cleanup_values_file

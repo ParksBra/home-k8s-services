@@ -1,0 +1,16 @@
+- name: Create requested templated values files
+  block:
+    - name: Create rendered values
+      ansible.builtin.include_role:
+        name: helm_values
+      vars:
+        requested_values_templates: "{{ item.fragments }}"
+        final_values_file_path: "{{ temp_directory }}/{{ item.chart }}_helm_values.yml"
+  with_items: "{{ requested_values_templates }}"
+
+- name: Use rendered values with terraform
+  community.general.terraform:
+    project_path: "terraform/{{ tf_target_project }}"
+    variables:
+      helm_values_file: "{{ temp_directory }}/{{ item.chart }}_helm_values.yml"
+  with_items: "{{ requested_values_templates }}"

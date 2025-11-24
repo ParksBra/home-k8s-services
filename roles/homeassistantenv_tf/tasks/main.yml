@@ -1,0 +1,29 @@
+- name: Set requested templated values files variable
+  ansible.builtin.set_fact:
+    requested_values_templates_by_chart:
+      - chart: homeassistant
+        fragments:
+          - homeassistant
+        final_temp_path: "{{ temp_directory }}/homeassistant_helm_values.yml"
+      - chart: mosquitto
+        fragments:
+          - mosquitto
+        final_temp_path: "{{ temp_directory }}/mosquitto_helm_values.yml"
+      - chart: zigbee2mqtt
+        fragments:
+          - zigbee2mqtt
+        final_temp_path: "{{ temp_directory }}/zigbee2mqtt_helm_values.yml"
+
+- name: Create rendered values
+  ansible.builtin.include_role:
+    name: helm_values
+  vars:
+    requested_values_templates: "{{ item.fragments }}"
+    final_values_file_path: "{{ item.final_temp_path }}"
+  with_items: "{{ requested_values_templates }}"
+
+- name: Use rendered values with terraform
+  community.general.terraform:
+    project_path: "terraform/{{ tf_target_project }}"
+    variables:
+    
