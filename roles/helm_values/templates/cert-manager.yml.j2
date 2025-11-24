@@ -1,2 +1,7 @@
 crds:
   enabled: true
+
+image:
+  repository: "{{ cert_manager_image_repository }}"
+  tag: "{{ cert_manager_image_tag }}"
+  pullPolicy: "{{ cert_manager_image_pull_policy }}"

@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: "ghcr.io/home-assistant/home-assistant"
-  tag: "latest"
-  pullPolicy: "Always"
+  repository: "{{ homeassistant_image_repository }}"
+  tag: "{{ homeassistant_image_tag }}"
+  pullPolicy: "{{ homeassistant_image_pull_policy }}"
 
 serviceAccount:
   create: true
@@ -35,7 +35,7 @@ service:
 
 ingress:
   enabled: true
-  className: "nginx"
+  className: "{{ cluster_ingress_primary_class_name }}"
   annotations:
     cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer_name }}"
   hosts:
@@ -52,9 +52,9 @@ addons:
   codeserver:
     enabled: {{ homeassistant_codeserver_enabled | bool }}
     image:
-      repository: "ghcr.io/coder/code-server"
-      pullPolicy: "Always"
-      tag: "latest"
+      repository: "{{ homeassistant_codeserver_image_repository }}"
+      pullPolicy: "{{ homeassistant_codeserver_image_pull_policy }}"
+      tag: "{{ homeassistant_codeserver_image_tag }}"
     auth:
       enabled: true
     service:
@@ -62,9 +62,8 @@ addons:
       port: {{ homeassistant_codeserver_service_port }}
     ingress:
       enabled: true
-      className: "nginx"
-      annotations:
-        cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer_name }}"
+      className: "{{ cluster_ingress_primary_class_name }}"
+      annotations: {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(6) }}
       hosts:
         - host: "{{ homeassistant_codeserver_ingress_domain }}"
           paths:

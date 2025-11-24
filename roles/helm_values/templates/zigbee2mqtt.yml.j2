@@ -1,7 +1,7 @@
 image:
-  repository: koenkk/zigbee2mqtt
-  tag: "latest"
-  pullPolicy: "Always"
+  repository: "{{ zigbee2mqtt_image_repository }}"
+  tag: "{{ zigbee2mqtt_image_tag }}"
+  pullPolicy: "{{ zigbee2mqtt_image_pull_policy }}"
 
 service:
   type: "ClusterIP"
@@ -17,9 +17,8 @@ zigbee2mqtt:
 
 ingress:
   enabled: true
-  ingressClassName: "nginx"
-  annotations:
-    cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer_name }}"
+  ingressClassName: "{{ cluster_primary_ingress_class_name }}"
+  annotations: {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(2) }}
   hosts:
     - host: "{{ zigbee2mqtt_ingress_domain }}"
       paths:

@@ -1,16 +1,35 @@
 app:
+  mode: "{{ 'api' if kubernetes_dashboard_api_only else 'dashboard' }}"
+  image:
+    pullPolicy: "{{ kubernetes_dashboard_image_pull_policy }}"
   ingress:
     enabled: true
     hosts:
       - "{{ kubernetes_dashboard_ingress_domain }}"
-    ingressClassName: "nginx"
+    ingressClassName: "{{ cluster_ingress_primary_class_name }}"
     useDefaultIngressClass: false
     useDefaultAnnotations: true
     pathType: "ImplementationSpecific"
     path: "/"
     issuer:
-      name: "{{ cert_manager_cluster_issuer_name }}"
-      scope: "cluster"
+      name: null # We will add our own annotations
+      scope: "disabled"
+    annotations: {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(4) }}
     tls:
       enabled: true
       secretName: "{{ kubernetes_dashboard_ingress_tls_secret }}"
+
+api:
+  image:
+    repository: "{{ kubernetes_dashboard_api_image_repository }}"
+    tag: "{{ kubernetes_dashboard_api_image_tag }}"
+
+web:
+  image:
+    repository: "{{ kubernetes_dashboard_web_image_repository }}"
+    tag: "{{ kubernetes_dashboard_web_image_tag }}"
+
+auth:
+  image:
+    repository: "{{ kubernetes_dashboard_auth_image_repository }}"
+    tag: "{{ kubernetes_dashboard_auth_image_tag }}"

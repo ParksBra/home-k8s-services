@@ -2,9 +2,9 @@ replicaCount: 1
 strategyType: "Recreate"
 
 image:
-  repository: "eclipse-mosquitto"
-  tag: "latest"
-  pullPolicy: "Always"
+  repository: "{{ mosquitto_image_repository }}"
+  tag: "{{ mosquitto_image_tag }}"
+  pullPolicy: "{{ mosquitto_image_pull_policy }}"
 
 authentication:
   passwordEntries: |-

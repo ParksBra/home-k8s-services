@@ -1,17 +1,17 @@
 controller:
   enabled: true
   image:
-    repository: "ghcr.io/project-akri/akri/controller"
-    tag: "latest"
-    pullPolicy: "Always"
+    repository: "{{ akri_controller_image_repository }}"
+    tag: "{{ akri_controller_image_tag }}"
+    pullPolicy: "{{ akri_controller_image_pull_policy }}"
 
 agent:
   enabled: true
   image:
-    repository: "ghcr.io/project-akri/akri/agent"
-    fullRepository: ghcr.io/project-akri/akri/agent-full
-    tag: "latest"
-    pullPolicy: "Always"
+    repository: "{{ akri_agent_image_repository }}"
+    fullRepository: "{{ akri_agent_full_image_repository }}"
+    tag: "{{ akri_agent_image_tag }}"
+    pullPolicy: "{{ akri_agent_image_pull_policy }}"
 
 udev:
   configuration:

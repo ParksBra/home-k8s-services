@@ -18,10 +18,25 @@ k8s_service_dns_domain: "cluster.local"
 k8s_kubectl_config_dir: "/home/{{ ansible_ssh_user }}/.kube"
 k8s_kubectl_config_path: "{{ k8s_kubectl_config_dir }}/config"
 
+kubernetes_dashboard_web_image_repository: "docker.io/kubernetesui/dashboard-web"
+kubernetes_dashboard_web_image_tag: "latest"
+kubernetes_dashboard_api_image_repository: "docker.io/kubernetesui/dashboard-api"
+kubernetes_dashboard_api_image_tag: "latest"
+kubernetes_dashboard_auth_image_repository: "docker.io/kubernetesui/dashboard-auth"
+kubernetes_dashboard_auth_image_tag: "latest"
+kubernetes_dashboard_image_pull_policy: "Always"
 kubernetes_dashboard_namespace: "kubernetes-dashboard"
+kubernetes_dashboard_api_only: false
 kubernetes_dashboard_ingress_domain: "k8s.{{ homeassistantenv_parent_domain }}"
 kubernetes_dashboard_ingress_tls_secret: "kubernetes-dashboard-ingress-tls"
 
+akri_controller_image_repository: "ghcr.io/project-akri/akri/controller"
+akri_controller_image_tag: "latest"
+akri_controller_image_pull_policy: "Always"
+akri_agent_image_repository: "ghcr.io/project-akri/akri/agent"
+akri_agent_full_image_repository: "ghcr.io/project-akri/akri/agent-full"
+akri_agent_image_tag: "latest"
+akri_agent_image_pull_policy: "Always"
 akri_namespace: "akri"
 akri_zigbee_radio_product_id: "ea60"
 akri_zigbee_radio_vendor_id: "10c4"
@@ -34,12 +49,18 @@ homeassistantenv_namespace: "home-assistant"
 homeassistantenv_parent_domain: "home.parkl.ee"
 homeassistantenv_ingress_tls_secret: "homeassistant-ingress-tls"
 
+homeassistant_image_repository: "ghcr.io/home-assistant/home-assistant"
+homeassistant_image_tag: "latest"
+homeassistant_image_pull_policy: "Always"
 homeassistant_namespace: "{{ homeassistantenv_namespace }}"
 homeassistant_storage_class_name: "homeassistant-zfs-sc"
 homeassistant_storage_class_pool_name: "zfspv-pool"
 homeassistant_storage_class_reclaim_policy: "Retain"
 homeassistant_data_volume_size: "64Gi"
 homeassistant_codeserver_enabled: true
+homeassistant_codeserver_image_repository: "ghcr.io/coder/code-server"
+homeassistant_codeserver_image_tag: "latest"
+homeassistant_codeserver_image_pull_policy: "Always"
 homeassistant_codeserver_service_port: 12123
 homeassistant_codeserver_ingress_domain: "code.{{ homeassistant_ingress_domain }}"
 homeassistant_codeserver_ingress_tls_secret: "homeassistant-codeserver-ingress-tls"
@@ -51,6 +72,9 @@ homeassistant_trusted_proxies:
 homeassistant_service_port: 8123
 homeassistant_ingress_domain: "{{ homeassistantenv_parent_domain }}"
 
+cert_manager_image_repository: "quay.io/jetstack/cert-manager-controller"
+cert_manager_image_tag: "latest"
+cert_manager_image_pull_policy: "Always"
 cert_manager_cluster_issuer_name: "letsencrypt"
 cert_manager_cluster_issuer_private_key_secret_name: "{{ cert_manager_cluster_issuer_name }}-key"
 cert_manager_cluster_issuer_acme_server: "https://acme-v02.api.letsencrypt.org/directory"
@@ -61,6 +85,13 @@ cert_manager_cloudflare_api_token: "{{ lookup('infisical.vault.read_secrets', se
 cert_manager_cloudflare_secret_name: "cloudflare-api"
 cert_manager_namespace: "cert-manager"
 
+cluster_ingress_primary_class_name: "nginx"
+cluster_ingress_default_annotations:
+  cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer_name }}"
+
+mosquitto_image_repository: "eclipse-mosquitto"
+mosquitto_image_tag: "latest"
+mosquitto_image_pull_policy: "Always"
 mosquitto_namespace: "{{ homeassistantenv_namespace }}"
 mosquitto_storage_class_name: "{{ homeassistant_storage_class_name }}"
 mosquitto_data_volume_size: "8Gi"
@@ -72,6 +103,9 @@ mosquitto_service_address: "mosquitto.{{ homeassistant_namespace }}.svc.cluster.
 mosquitto_mqtt_port: 1883
 mosquitto_websocket_port: 9001
 
+zigbee2mqtt_image_repository: "koenkk/zigbee2mqtt"
+zigbee2mqtt_image_tag: "latest"
+zigbee2mqtt_image_pull_policy: "Always"
 zigbee2mqtt_namespace: "{{ homeassistantenv_namespace }}"
 zigbee2mqtt_ingress_domain: "z2m.{{ homeassistantenv_parent_domain }}"
 zigbee2mqtt_ingress_tls_secret: "zigbee2mqtt-ingress-tls"
