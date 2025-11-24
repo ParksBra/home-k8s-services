@@ -31,3 +31,14 @@ ingress:
     - secretName: "{{ zigbee2mqtt_ingress_tls_secret }}"
       hosts:
         - "{{ zigbee2mqtt_ingress_domain }}"
+
+statefulset:
+  resources:
+    requests:
+      memory: "600Mi"
+      cpu: "200m"
+      akri.sh/{{ akri_udev_instance_name }}: "1"
+    limits:
+      memory: "600Mi"
+      cpu: "200m"
+      akri.sh/{{ akri_udev_instance_name }}: "1"
