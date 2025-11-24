@@ -4,8 +4,13 @@ resource "helm_release" "akri" {
   chart      = "akri"
 
   namespace = var.chart_namespace
-
-  depends_on = [
-    kubernetes_namespace.akri
-  ]
+  version  = var.chart_version
+  create_namespace = var.chart_create_namespace
+  dependency_update = var.chart_dependency_update
+  lint = var.chart_linting_enabled
+  recreate_pods = var.chart_recreate_pods
+  upgrade_install = var.chart_upgrade_install
+  replace = var.chart_replace
+  cleanup_on_fail = var.chart_cleanup_on_fail
+  values = [var.akri_values_yaml]
 }

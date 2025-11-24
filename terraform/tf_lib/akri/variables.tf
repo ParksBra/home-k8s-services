@@ -59,72 +59,8 @@ variable "chart_cleanup_on_fail" {
   default     = true
 }
 
-# Akri vars
-variable "akri_namespace" {
-  description = "The namespace in which to deploy Akri."
+# Akri chart specific vars
+variable "akri_values_yaml" {
+  description = "Raw YAML string containing values to override the default Akri Helm chart values."
   type        = string
-  default     = "akri"
-}
-
-# Akri controller image vars
-variable "akri_controller_image_repository" {
-  description = "The Akri controller image repository."
-  type        = string
-  default     = "ghcr.io/project-akri/akri/controller"
-}
-
-variable "akri_controller_image_tag" {
-  description = "The Akri controller image tag."
-  type        = string
-  default     = "latest"
-}
-
-variable "akri_controller_image_pull_policy" {
-  description = "The Akri controller image pull policy."
-  type        = string
-  default     = "Always"
-}
-
-# Akri agent image vars
-variable "akri_agent_image_repository" {
-  description = "The Akri agent image repository."
-  type        = string
-  default     = "ghcr.io/project-akri/akri/agent"
-}
-
-variable "akri_agent_full_image_repository" {
-  description = "The full Akri agent image repository."
-  type        = string
-  default     = "ghcr.io/project-akri/akri/agent-full"
-}
-
-variable "akri_agent_image_tag" {
-  description = "The Akri agent image tag."
-  type        = string
-  default     = "latest"
-}
-
-variable "akri_agent_image_pull_policy" {
-  description = "The Akri agent image pull policy."
-  type        = string
-  default     = "Always"
-}
-
-# Akri udev instance vars
-variable "akri_udev_instance_name" {
-  description = "The name of the Akri udev instance."
-  type        = string
-  default     = "udev-instance"
-}
-
-variable "akri_udev_discovery_group_recursive" {
-  description = "Whether the Akri udev discovery group should be recursive."
-  type        = bool
-  default     = true
-}
-
-variable "akri_udev_discovery_rules" {
-  description = "The Akri udev discovery rules."
-  type        = list(string)
-  default     = []
 }

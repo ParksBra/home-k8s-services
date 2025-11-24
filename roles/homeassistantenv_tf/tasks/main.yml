@@ -14,16 +14,10 @@
           - zigbee2mqtt
         final_temp_path: "{{ temp_directory }}/zigbee2mqtt_helm_values.yml"
 
-- name: Create rendered values
+- name: Run terraform
   ansible.builtin.include_role:
-    name: helm_values
+    name: terraform
   vars:
-    requested_values_templates: "{{ item.fragments }}"
-    final_values_file_path: "{{ item.final_temp_path }}"
-  with_items: "{{ requested_values_templates }}"
-
-- name: Use rendered values with terraform
-  community.general.terraform:
-    project_path: "terraform/{{ tf_target_project }}"
-    variables:
-    
+    requested_values_templates_by_chart: "{{ requested_values_templates_by_chart }}"
+    tf_target_project: homeassistantenv
+    tf_state: planned

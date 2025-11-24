@@ -1,0 +1,15 @@
+- name: Set requested templated values files variable
+  ansible.builtin.set_fact:
+    requested_values_templates_by_chart:
+      - chart: akri
+        fragments:
+          - akri
+        final_temp_path: "{{ temp_directory }}/akri_helm_values.yml"
+
+- name: Run terraform
+  ansible.builtin.include_role:
+    name: terraform
+  vars:
+    requested_values_templates_by_chart: "{{ requested_values_templates_by_chart }}"
+    tf_target_project: akri
+    tf_state: planned

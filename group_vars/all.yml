@@ -112,3 +112,5 @@ zigbee2mqtt_namespace: "{{ homeassistantenv_namespace }}"
 zigbee2mqtt_ingress_domain: "z2m.{{ homeassistantenv_parent_domain }}"
 zigbee2mqtt_ingress_tls_secret: "zigbee2mqtt-ingress-tls"
 zigbee2mqtt_service_port: 8080
+
+tf_state: "planned"
