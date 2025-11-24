@@ -1,7 +1,7 @@
-- name: Add kubernetes-dashboard repo to helm
+- name: Add pajikos home-assistant repo to helm
   kubernetes.core.helm_repository:
-    name: kubernetes-dashboard
-    repo_url: https://kubernetes.github.io/dashboard
+    name: pajikos
+    repo_url: http://pajikos.github.io/home-assistant-helm-chart
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     force_update: true
 
@@ -10,16 +10,19 @@
     name: helm_values
   vars:
     requested_values_templates:
-      - kubernetes-dashboard
+      - homeassistant
 
-- name: Install kubernetes-dashboard via helm
+- name: Install pajikos/home-assistant via helm
   kubernetes.core.helm:
-    name: kubernetes-dashboard
-    chart_ref: kubernetes-dashboard/kubernetes-dashboard
-    namespace: "{{ kubernetes_dashboard_namespace }}"
+    name: homeassistant
+    chart_ref: pajikos/home-assistant
+    namespace: "{{ homeassistant_namespace }}"
     create_namespace: true
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     values_files:
       - "{{ helm_values_temp_file }}"
     update_repo_cache: true
     state: present
+
+- name: Create storage components
+  ansible.builtin.include_tasks: create_homeassistant_storage_components.yml

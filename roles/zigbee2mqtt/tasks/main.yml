@@ -1,7 +1,7 @@
-- name: Add kubernetes-dashboard repo to helm
+- name: Add zigbee2mqtt repo to helm
   kubernetes.core.helm_repository:
-    name: kubernetes-dashboard
-    repo_url: https://kubernetes.github.io/dashboard
+    name: zigbee2mqtt
+    repo_url: https://charts.zigbee2mqtt.io
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     force_update: true
 
@@ -10,13 +10,13 @@
     name: helm_values
   vars:
     requested_values_templates:
-      - kubernetes-dashboard
+      - zigbee2mqtt
 
-- name: Install kubernetes-dashboard via helm
+- name: Install zigbee2mqtt via helm
   kubernetes.core.helm:
-    name: kubernetes-dashboard
-    chart_ref: kubernetes-dashboard/kubernetes-dashboard
-    namespace: "{{ kubernetes_dashboard_namespace }}"
+    name: zigbee2mqtt
+    chart_ref: zigbee2mqtt/zigbee2mqtt
+    namespace: "{{ zigbee2mqtt_namespace }}"
     create_namespace: true
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     values_files:

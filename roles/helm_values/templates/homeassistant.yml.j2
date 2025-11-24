@@ -1,0 +1,76 @@
+replicaCount: 1
+
+image:
+  repository: "{{ homeassistant_image_repository }}"
+  tag: "{{ homeassistant_image_tag }}"
+  pullPolicy: "{{ homeassistant_image_pull_policy }}"
+
+serviceAccount:
+  create: true
+  name: "homeassistant-sa"
+
+controller:
+  type: "StatefulSet"
+
+persistence:
+  enabled: true
+  storageClass: "{{ homeassistant_storage_class_name }}"
+  size: "{{ homeassistant_data_volume_size }}"
+  accessMode: "ReadWriteOnce"
+
+configuration:
+  enabled: true
+  trusted_proxies: {{ homeassistant_trusted_proxies }}
+  templateConfig: |
+    {{ lookup('template', 'templates/sub_templates/homeassistant_configuration.yml.j2') | indent(4) }}
+  initScript: |
+    {{ lookup('template', 'templates/sub_templates/homeassistant_init_script.sh.j2') | indent(4) }}
+
+hostNetwork: true
+dnsPolicy: "ClusterFirstWithHostNet"
+
+service:
+  type: "ClusterIP"
+  port: {{ homeassistant_service_port }}
+
+ingress:
+  enabled: true
+  className: "{{ cluster_ingress_primary_class_name }}"
+  annotations:
+    {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(4) }}
+  hosts:
+    - host: "{{ homeassistant_ingress_domain }}"
+      paths:
+        - path: "/"
+          pathType: "ImplementationSpecific"
+  tls:
+    - secretName: "{{ homeassistant_ingress_tls_secret }}"
+      hosts:
+        - "{{ homeassistant_ingress_domain }}"
+
+addons:
+  codeserver:
+    enabled: {{ homeassistant_codeserver_enabled | bool }}
+    image:
+      repository: "{{ homeassistant_codeserver_image_repository }}"
+      pullPolicy: "{{ homeassistant_codeserver_image_pull_policy }}"
+      tag: "{{ homeassistant_codeserver_image_tag }}"
+    auth:
+      enabled: true
+    service:
+      type: "ClusterIP"
+      port: {{ homeassistant_codeserver_service_port }}
+    ingress:
+      enabled: true
+      className: "{{ cluster_ingress_primary_class_name }}"
+      annotations:
+        {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(6) }}
+      hosts:
+        - host: "{{ homeassistant_codeserver_ingress_domain }}"
+          paths:
+            - path: "/"
+              pathType: "ImplementationSpecific"
+      tls:
+        - secretName: "{{ homeassistant_codeserver_ingress_tls_secret }}"
+          hosts:
+            - "{{ homeassistant_codeserver_ingress_domain }}"

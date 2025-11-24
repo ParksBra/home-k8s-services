@@ -1,6 +1,6 @@
 - name: Create values file
   ansible.builtin.include_role:
-    name: values
+    name: helm_values
   vars:
     requested_values_templates:
       - cert-manager
@@ -9,10 +9,13 @@
   kubernetes.core.helm:
     name: cert-manager
     chart_ref: oci://quay.io/jetstack/charts/cert-manager
-    namespace: cert-manager
+    namespace: "{{ cert_manager_namespace }}"
     create_namespace: true
     kubeconfig: "{{ k8s_kubectl_config_path }}"
     values_files:
       - "{{ helm_values_temp_file }}"
     update_repo_cache: true
     state: present
+
+- name: Create cluster issuer for cert-manager
+  ansible.builtin.include_tasks: create_cluster_issuer.yml

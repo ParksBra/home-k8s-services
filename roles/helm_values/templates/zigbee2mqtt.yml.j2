@@ -1,0 +1,33 @@
+image:
+  repository: "{{ zigbee2mqtt_image_repository }}"
+  tag: "{{ zigbee2mqtt_image_tag }}"
+  pullPolicy: "{{ zigbee2mqtt_image_pull_policy }}"
+
+service:
+  type: "ClusterIP"
+  port: {{ zigbee2mqtt_service_port }}
+
+zigbee2mqtt:
+  mqtt:
+    server: "mqtt://{{ mosquitto_service_address }}:{{ mosquitto_mqtt_port }}"
+    user: "{{ mosquitto_username }}"
+    password: "{{ mosquitto_password }}"
+  serial:
+    port: null  # e.g. /dev/ttyACM0
+
+ingress:
+  enabled: true
+  ingressClassName: "{{ cluster_ingress_primary_class_name }}"
+  annotations:
+    {{ cluster_ingress_default_annotations | to_nice_yaml(indent=2) | indent(2) }}
+  hosts:
+    - host: "{{ zigbee2mqtt_ingress_domain }}"
+      paths:
+        - path: "/"
+          pathType: "ImplementationSpecific"
+        - path: "/api"
+          pathType: "ImplementationSpecific"
+  tls:
+    - secretName: "{{ zigbee2mqtt_ingress_tls_secret }}"
+      hosts:
+        - "{{ zigbee2mqtt_ingress_domain }}"

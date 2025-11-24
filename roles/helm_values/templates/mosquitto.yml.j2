@@ -1,0 +1,40 @@
+replicaCount: 1
+strategyType: "Recreate"
+
+image:
+  repository: "{{ mosquitto_image_repository }}"
+  tag: "{{ mosquitto_image_tag }}"
+  pullPolicy: "{{ mosquitto_image_pull_policy }}"
+
+authentication:
+  passwordEntries: |-
+    {{ mosquitto_username }}:{{ mosquitto_password_hashed }}
+  passwordFilePath: "/etc/mosquitto/passwordfile"
+
+config: |
+  persistence true
+  persistence_location /mosquitto/data/
+  log_dest stdout
+  listener {{ mosquitto_mqtt_port }}
+  protocol mqtt
+  listener {{ mosquitto_websocket_port }}
+  protocol websockets
+
+persistence:
+  enabled: true
+  storageClass: "{{ mosquitto_storage_class_name }}"
+  size: "{{ mosquitto_data_volume_size }}"
+  accessMode: "ReadWriteOnce"
+  mountPath: "/mosquitto/data"
+
+service:
+  type: "ClusterIP"
+  externalTrafficPolicy: ""
+
+ports:
+  mqtt:
+    port: {{ mosquitto_mqtt_port }}
+    protocol: "TCP"
+  websockets:
+    port: {{ mosquitto_websocket_port }}
+    protocol: "TCP"
