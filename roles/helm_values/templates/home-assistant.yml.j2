@@ -49,7 +49,7 @@ ingress:
         - "{{ homeassistant_ingress_domain }}"
 
 addons:
-  codeserver:`
+  codeserver:
     enabled: {{ homeassistant_codeserver_enabled | bool }}
     image:
       repository: "{{ homeassistant_codeserver_image_repository }}"

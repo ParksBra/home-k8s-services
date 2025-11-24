@@ -86,7 +86,7 @@ cert_manager_cloudflare_secret_name: "cloudflare-api"
 cert_manager_namespace: "cert-manager"
 
 cluster_ingress_primary_class_name: "nginx"
-cluster_ingress_default_annotations: |
+cluster_ingress_default_annotations:
   cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer_name }}"
 
 mosquitto_image_repository: "eclipse-mosquitto"
