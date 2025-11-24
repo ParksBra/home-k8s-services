@@ -15,7 +15,7 @@ app:
       name: null # We will add our own annotations
       scope: "disabled"
     annotations:
-    {{ cluster_ingress_default_annotations | to_yaml(indent=2) | indent(4) }}
+    {{ cluster_ingress_default_annotations | to_yaml(indent=2, default_style="") | indent(4) }}
     tls:
       enabled: true
       secretName: "{{ kubernetes_dashboard_ingress_tls_secret }}"
