@@ -20,3 +20,4 @@
     project_path: "terraform/{{ tf_target_project }}"
     variables: "{{ tf_helm_values_variables }}"
     state: "{{ tf_state }}"
+    plan_file: "/tmp/{{tf_target_project}}.tfplan"
