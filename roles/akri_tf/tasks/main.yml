@@ -12,3 +12,4 @@
   vars:
     tf_target_project: akri
     tf_state: planned
+    display_plan: true
