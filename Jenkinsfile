@@ -11,6 +11,8 @@ def setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_ident
     env.INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET = infisical_identity_secret
     env.INFISICAL_AUTH_METHOD = 'universal_auth'
 
+    env.CICD_WORKSPACE = WORKSPACE
+
     def ansible_opts_list = []
     if (params.DEBUG.toBoolean()) {
         ansible_opts_list.add('-v')

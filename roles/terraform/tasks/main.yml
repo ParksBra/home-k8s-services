@@ -17,7 +17,7 @@
 
 - name: Use rendered values with terraform
   community.general.terraform:
-    project_path: "terraform/tf_lib/{{ tf_target_project }}"
+    project_path: "{{ cicd_workspace_path }}/terraform/tf_lib/{{ tf_target_project }}"
     variables: "{{ tf_helm_values_variables }}"
     state: "{{ tf_state }}"
     plan_file: "/tmp/{{tf_target_project}}.tfplan"
