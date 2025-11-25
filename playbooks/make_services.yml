@@ -2,7 +2,13 @@
   roles:
     - {role: kubernetes_dashboard, tags: ['kubernetes_dashboard']}
     - {role: cert_manager, tags: ['cert_manager']}
-    - {role: akri_tf, tags: ['akri']}
     - {role: homeassistantenv, tags: ['homeassistantenv']}
+  become: true
+  become_user: root
+
+- hosts: ansible_controller
+  connection: local
+  roles:
+    - {role: akri_tf, tags: ['akri']}
   become: true
   become_user: root

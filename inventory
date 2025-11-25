@@ -3,3 +3,6 @@ home-k8s-controller
 
 [k8s_controller]
 home-k8s-controller
+
+[ansible_controller]
+ansible-controller
