@@ -8,7 +8,7 @@ variable "kubeconfig_path" {
 variable "chart_version" {
   description = "The version of the Akri Helm chart to deploy."
   type        = string
-  default     = "latest"
+  default     = null
 }
 
 variable "chart_namespace" {
