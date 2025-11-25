@@ -1,6 +1,6 @@
 resource "helm_release" "akri" {
   name       = "akri"
-  repository = "https://akri.sh/helm-charts"
+  repository = "https://project-akri.github.io/akri"
   chart      = "akri"
 
   namespace = var.chart_namespace
