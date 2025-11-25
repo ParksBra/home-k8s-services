@@ -1,5 +1,6 @@
 - hosts: k8s_controller
   roles:
+    - {role: get_kube_config, tags: ['get_kube_config']}
     - {role: kubernetes_dashboard, tags: ['kubernetes_dashboard']}
     - {role: cert_manager, tags: ['cert_manager']}
     - {role: homeassistantenv, tags: ['homeassistantenv']}

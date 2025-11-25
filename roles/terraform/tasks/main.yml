@@ -11,6 +11,10 @@
     tf_helm_values_variables: "{{ tf_helm_values_variables | default({}) | combine({ item.chart ~ '_values_yaml': lookup('ansible.builtin.file', item.final_temp_path) }) }}"
   with_items: "{{ requested_values_templates_by_chart }}"
 
+- name: Add other variables
+  ansible.builtin.set_fact:
+    tf_helm_values_variables: "{{ tf_helm_values_variables | combine({ 'kubeconfig_path': k8s_kubectl_remote_source_path }) }}"
+
 - name: Use rendered values with terraform
   community.general.terraform:
     project_path: "terraform/{{ tf_target_project }}"

@@ -17,6 +17,7 @@ k8s_pod_network_cidr: "10.244.0.0/16"
 k8s_service_dns_domain: "cluster.local"
 k8s_kubectl_config_dir: "/home/{{ ansible_ssh_user }}/.kube"
 k8s_kubectl_config_path: "{{ k8s_kubectl_config_dir }}/config"
+k8s_kubectl_remote_source_path: "/tmp/kubeconfig"
 
 kubernetes_dashboard_web_image_repository: "docker.io/kubernetesui/dashboard-web"
 kubernetes_dashboard_web_image_tag: "latest"
