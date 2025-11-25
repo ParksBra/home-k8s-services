@@ -1,6 +1,11 @@
+resource "helm_repository" "akri" {
+  name = "akri"
+  url  = "https://project-akri.github.io/akri"
+}
+
 resource "helm_release" "akri" {
   name       = "akri"
-  repository = "https://project-akri.github.io/akri"
+  repository = helm_repository.akri.name
   chart      = "akri"
 
   namespace = var.chart_namespace
