@@ -26,5 +26,5 @@
 
 - name: Display terraform plan output
   ansible.builtin.debug:
-    msg: "{{ terraform_result.stdout }}"
+    msg: "{{ terraform_result.stdout_lines}}"
   when: display_plan and tf_state == 'planned'
