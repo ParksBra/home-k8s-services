@@ -128,11 +128,11 @@ pipeline {
                     }
                     echo 'Terraform init...'
                     script {
-                        sh "terraform init -chdir=${WORKSPACE}/terraform -no-color"
+                        sh "terraform init -chdir ${WORKSPACE}/terraform -no-color"
                     }
                     echo 'Terraform plan...'
                     script {
-                        sh "terraform plan -chdir=${WORKSPACE}/terraform -no-color"
+                        sh "terraform plan -chdir ${WORKSPACE}/terraform -no-color"
                     }
                 }
             }
