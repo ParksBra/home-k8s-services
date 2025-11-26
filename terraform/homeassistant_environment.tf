@@ -1,5 +1,5 @@
 module "homeassistant_environment" {
-  source = "https://github.com/ParksBra/home-k8s-tf-lib/tree/initial_development/modules/homeassistant_environment"
+  source = "github.com/ParksBra/home-k8s-tf-lib//modules/homeassistant_environment?ref=initial_development"
 
   namespace = local.homeassistant_environment_namespace
   python_executable = var.python_executable
