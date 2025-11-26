@@ -23,8 +23,7 @@ terraform {
   }
 
   backend "local" {
-    path = "${path.module}/../terraform.tfstate"
-    workspace_dir = "${path.module}"
+    path = "terraform.tfstate"
   }
 }
 
