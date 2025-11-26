@@ -5,22 +5,28 @@ variable "kubeconfig_path" {
 }
 
 # Chart vars
-variable "chart_version" {
-  description = "The version of the Akri Helm chart to deploy."
+variable "namespace" {
+  description = "The namespace in which to deploy the Helm chart."
   type        = string
   default     = null
 }
 
-variable "chart_namespace" {
-  description = "The namespace in which to deploy the Akri Helm chart."
-  type        = string
-  default     = "akri"
+variable "create_namespace" {
+  description = "Whether to create the namespace for the module."
+  type        = bool
+  default     = false
 }
 
-variable "chart_create_namespace" {
-  description = "Whether to create the namespace for the Akri Helm chart."
-  type        = bool
-  default     = true
+variable "chart_install_name" {
+  description = "The name used to install the Helm chart."
+  type        = string
+  default     = null
+}
+
+variable "chart_version" {
+  description = "The version of the Helm chart to deploy. If null, the latest version is used."
+  type        = string
+  default     = null
 }
 
 variable "chart_linting_enabled" {
@@ -60,7 +66,92 @@ variable "chart_cleanup_on_fail" {
 }
 
 # Akri chart specific vars
-variable "akri_values_yaml" {
-  description = "Raw YAML string containing values to override the default Akri Helm chart values."
+variable "kubernetes_distro" {
+  description = "The Kubernetes distribution where Akri is being deployed."
   type        = string
+  default     = "k8s"
+}
+
+variable "controller_enabled" {
+  description = "Whether to enable the Akri controller."
+  type        = bool
+  default     = true
+}
+
+variable "controller_image_repository" {
+  description = "The Akri controller image repository."
+  type        = string
+  default     = "ghcr.io/project-akri/akri/controller"
+}
+
+variable "controller_image_tag" {
+  description = "The Akri controller image tag."
+  type        = string
+  default     = "latest"
+}
+
+variable "controller_image_pull_policy" {
+  description = "The image pull policy for the Akri controller."
+  type        = string
+  default     = "Always"
+}
+
+variable "agent_enabled" {
+  description = "Whether to enable the Akri agent."
+  type        = bool
+  default     = true
+}
+
+variable "agent_image_repository" {
+  description = "The Akri agent image repository."
+  type        = string
+  default     = "ghcr.io/project-akri/akri/agent"
+}
+
+variable "agent_image_full_repository" {
+  description = "The Akri agent image repository."
+  type        = string
+  default     = "ghcr.io/project-akri/akri/agent-full"
+}
+
+variable "agent_image_tag" {
+  description = "The Akri agent image tag."
+  type        = string
+  default     = "latest"
+}
+
+variable "agent_image_pull_policy" {
+  description = "The image pull policy for the Akri agent."
+  type        = string
+  default     = "Always"
+}
+
+variable "udev_enabled" {
+  description = "Whether to enable Akri udev configuration."
+  type        = bool
+  default     = true
+}
+
+variable "udev_discovery_enabled" {
+  description = "Whether to enable Akri udev discovery."
+  type        = bool
+  default     = true
+}
+
+variable "udev_instance_name" {
+  description = "The name of the Akri udev instance."
+  type        = string
+  default     = "akri-udev"
+}
+
+variable "udev_discovery_rules_list" {
+  description = "List of udev discovery rules for Akri."
+  type        = list(string)
+  default     = []
+}
+
+variable "udev_discovery_group_recursive" {
+  description = "Whether to use recursive group matching for udev discovery in Akri."
+  type        = bool
+  default     = true
 }

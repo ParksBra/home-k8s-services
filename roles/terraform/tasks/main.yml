@@ -21,6 +21,7 @@
     variables: "{{ tf_helm_values_variables }}"
     state: "{{ tf_state }}"
     plan_file: "/tmp/{{tf_target_project}}.tfplan"
+    state_file: "/tmp/{{tf_target_project}}.tfstate"
     force_init: true
   register: terraform_result
 
@@ -28,3 +29,4 @@
   ansible.builtin.debug:
     msg: "{{ terraform_result.stdout_lines}}"
   when: display_plan and tf_state == 'planned'
+
