@@ -29,7 +29,7 @@ terraform {
 
 provider "infisical" {
   host = var.infisical_uri
-  auth {
+  auth = {
     universal = {
       client_id     = var.infisical_auth_client_id
       client_secret = var.infisical_auth_client_secret
