@@ -42,7 +42,7 @@ akri_zigbee_radio_product_id: "ea60"
 akri_zigbee_radio_vendor_id: "10c4"
 akri_udev_instance_name: "zigbee-radio"
 akri_udev_discovery_rules_list:
-  - '''ATTRS{idVendor}=="{{ akri_zigbee_radio_vendor_id }}", ATTRS{idProduct}=="{{ akri_zigbee_radio_product_id }}"'''
+  - '''SUBSYSTEM=="tty", ATTRS{idVendor}=="{{ akri_zigbee_radio_vendor_id }}", ATTRS{idProduct}=="{{ akri_zigbee_radio_product_id }}"'''
 akri_udev_discovery_group_recursive: true
 
 parent_domain: "parkl.ee"
