@@ -11,6 +11,12 @@ def setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_ident
     env.INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET = infisical_identity_secret
     env.INFISICAL_AUTH_METHOD = 'universal_auth'
 
+    env.TF_VAR_infisical_uri = env.INFISCAL_URL
+    env.TF_VAR_infisical_project_id = env.INFISCAL_PROJECT_ID
+    env.TF_VAR_infisical_environment = env.INFISCAL_ENVIRONMENT
+    env.TF_VAR_infisical_auth_client_id = env.INFISICAL_UNIVERSAL_AUTH_CLIENT_ID
+    env.TF_VAR_infisical_auth_client_secret = env.INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET
+
     env.CICD_WORKSPACE = WORKSPACE
 
     def ansible_opts_list = []
