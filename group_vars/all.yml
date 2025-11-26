@@ -11,6 +11,7 @@ infiscal_project_id: "{{ lookup('env', 'INFISCAL_PROJECT_ID') }}"
 infiscal_environment_slug: "{{ lookup('env', 'INFISCAL_ENVIRONMENT_SLUG') }}"
 
 cicd_workspace_path: "{{ lookup('env', 'CICD_WORKSPACE') }}"
+cicd_kubeconfig_path: "{{ lookup('env', 'CICD_KUBECONFIG_PATH') | default(cicd_workspace_path + '/kubeconfig', true) }}"
 
 k8s_version: "1.34.1"
 k8s_major_version: "{{ k8s_version.split('.')[0] }}.{{ k8s_version.split('.')[1] }}"

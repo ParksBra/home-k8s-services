@@ -3,6 +3,11 @@ variable "kubeconfig_path" {
   type        = string
 }
 
+variable "python_executable" {
+  description = "Path to the Python executable"
+  type        = string
+}
+
 variable "infisical_uri" {
   description = "The Infisical API URI"
   type        = string
@@ -11,7 +16,7 @@ variable "infisical_uri" {
 variable "infisical_auth_client_id" {
   description = "The Infisical Auth Client ID"
   type        = string
-  sensitive = true
+  sensitive   = true
 }
 
 variable "infisical_auth_client_secret" {

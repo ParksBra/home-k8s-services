@@ -1,15 +1,7 @@
 - hosts: k8s_controller
   roles:
-    - {role: get_kube_config, tags: ['get_kube_config']}
     - {role: kubernetes_dashboard, tags: ['kubernetes_dashboard']}
     - {role: cert_manager, tags: ['cert_manager']}
     - {role: homeassistantenv, tags: ['homeassistantenv']}
-  become: true
-  become_user: root
-
-- hosts: ansible_controller
-  connection: local
-  roles:
-    - {role: akri_tf, tags: ['akri']}
   become: true
   become_user: root

@@ -1,12 +1,5 @@
-ephemeral "infisical_secret" "mosquitto_admin_username" {
-  name         = local.mosquito_admin_username_secret_name
-  env_slug     = var.infisical_environment
-  workspace_id  = var.infisical_project_id
-  folder_path  = "/"
-}
-
 ephemeral "infisical_secret" "mosquitto_admin_password" {
-  name         = local.mosquito_admin_password_secret_name
+  name         = local.mosquitto_admin_password_secret_name
   env_slug     = var.infisical_environment
   workspace_id  = var.infisical_project_id
   folder_path  = "/"

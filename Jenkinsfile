@@ -11,6 +11,10 @@ def setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_ident
     env.INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET = infisical_identity_secret
     env.INFISICAL_AUTH_METHOD = 'universal_auth'
 
+    env.CICD_KUBECONFIG_PATH = "${WORKSPACE}/kubeconfig"
+
+    env.TF_VAR_kubeconfig_path = env.CICD_KUBECONFIG_PATH
+    env.TF_VAR_python_executable = "${WORKSPACE}/.venv/bin/python3"
     env.TF_VAR_infisical_uri = env.INFISCAL_URL
     env.TF_VAR_infisical_project_id = env.INFISCAL_PROJECT_ID
     env.TF_VAR_infisical_environment = env.INFISCAL_ENVIRONMENT
@@ -93,7 +97,6 @@ pipeline {
             }
             steps {
                 echo 'Validating Ansible playbook syntax...'
-                
                     script {
                         try {
                             sh "${WORKSPACE}/.venv/bin/ansible-lint ${WORKSPACE}/playbooks/*.yml"
@@ -118,10 +121,18 @@ pipeline {
                     usernamePassword(credentialsId: params.INFISICAL_IDENTITY, usernameVariable: 'infisical_identity_client_id', passwordVariable: 'infisical_identity_secret'),
                     string(credentialsId: params.INFISCAL_PROJECT_ID, variable: 'infisical_project_id')
                     ]) {
-                    echo 'Running make_cluster Ansible playbook...'
+                    echo 'Fetching kubeconfig...'
                     setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_identity_client_id, infisical_identity_secret, infisical_project_id)
                     script {
-                        sh "${WORKSPACE}/.venv/bin/ansible-playbook '${WORKSPACE}/playbooks/make_services.yml' ${ansible_opts}"
+                        sh "${WORKSPACE}/.venv/bin/ansible-playbook '${WORKSPACE}/playbooks/update_kubeconfig.yml' ${ansible_opts}"
+                    }
+                    echo 'Terraform init...'
+                    script {
+                        sh "terraform init -chdir=${WORKSPACE}/terraform -no-color"
+                    }
+                    echo 'Terraform plan...'
+                    script {
+                        sh "terraform plan -chdir=${WORKSPACE}/terraform -no-color"
                     }
                 }
             }

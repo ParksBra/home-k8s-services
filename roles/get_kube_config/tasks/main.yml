@@ -1,5 +1,5 @@
 - name: Fetch kubectl config for CICD cluster access
   ansible.builtin.fetch:
     src: "{{ k8s_kubectl_config_path }}"
-    dest: "/tmp/kubeconfig"
+    dest: "{{ cicd_kubeconfig_path }}"
     flat: true

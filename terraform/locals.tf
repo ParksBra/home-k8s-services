@@ -3,17 +3,17 @@ locals {
   ingress_class_name = "nginx"
   parent_domain = "parkl.ee"
   zfs_pool_name = "zfspv-pool"
-  homeassistant_storage_size = "32Gi"
-  mosquitto_storage_size = "8Gi"
-  zigbee2mqtt_storage_size = "8Gi"
+  homeassistant_storage_size_gb = 32
+  mosquitto_storage_size_gb = 8
+  zigbee2mqtt_storage_size_gb = 8
 }
 
 locals {
-  mosquito_admin_username_secret_name = "mosquito-admin-username"
-  mosquito_admin_password_secret_name = "mosquito-admin-password"
+  mosquitto_admin_username = "admin"
+  mosquitto_admin_password_secret_name = "mosquitto-account-password"
 
   cloudflare_email_secret_name = "cloudflare-email"
   cloudflare_api_token_secret_name = "cloudflare-api-token"
 
-  acme_email_secret_name = "acme-email"
+  acme_email_secret_name = "cloudflare-email"
 }
