@@ -49,6 +49,11 @@ pipeline {
             defaultValue: false,
             description: 'Skip validation steps'
         )
+        booleanParam(
+            name: 'TF_DESTROY',
+            defaultValue: false,
+            description: 'Enable Terraform destroy instead of apply'
+        )
         credentials(
             name: 'CONTROLLER_SSH_KEY',
             credentialType: 'com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey',
@@ -110,6 +115,37 @@ pipeline {
                         } else {
                             unstable("Allowing to proceed on non-main branch.")
                         }
+                    }
+                }
+            }
+        }
+        stage('run-terraform-destroy') {
+            when {
+                expression { return params.TF_DESTROY.toBoolean() }
+            }
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(credentialsId: params.CONTROLLER_SSH_KEY, usernameVariable: 'controller_ssh_user', keyFileVariable: 'controller_ssh_key_path'),
+                    usernamePassword(credentialsId: params.INFISICAL_IDENTITY, usernameVariable: 'infisical_identity_client_id', passwordVariable: 'infisical_identity_secret'),
+                    string(credentialsId: params.INFISCAL_PROJECT_ID, variable: 'infisical_project_id')
+                    ]) {
+                    echo 'Fetching kubeconfig...'
+                    setup_env_vars(controller_ssh_user, controller_ssh_key_path, infisical_identity_client_id, infisical_identity_secret, infisical_project_id)
+                    script {
+                        sh "${WORKSPACE}/.venv/bin/ansible-playbook '${WORKSPACE}/playbooks/update_kubeconfig.yml' ${ansible_opts}"
+                    }
+                    echo 'Terraform init...'
+                    script {
+                        sh "terraform -chdir='${WORKSPACE}/terraform' init -no-color"
+                    }
+                    echo 'Terraform plan destroy...'
+                    script {
+                        sh "terraform -chdir='${WORKSPACE}/terraform' plan -no-color -out=terraform.tfplan -destroy"
+                    }
+                    input message: "Approve destroy?"
+                    echo 'Terraform destroy...'
+                    script {
+                        sh "terraform -chdir='${WORKSPACE}/terraform' destroy -no-color -auto-approve terraform.tfplan"
                     }
                 }
             }
