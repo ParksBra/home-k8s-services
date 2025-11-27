@@ -132,7 +132,12 @@ pipeline {
                     }
                     echo 'Terraform plan...'
                     script {
-                        sh "terraform -chdir='${WORKSPACE}/terraform' plan -no-color"
+                        sh "terraform -chdir='${WORKSPACE}/terraform' plan -no-color -out=terraform.tfplan"
+                    }
+                    input message: "Approve deployment?"
+                    echo 'Terraform apply...'
+                    script {
+                        sh "terraform -chdir='${WORKSPACE}/terraform' apply -no-color terraform.tfplan"
                     }
                 }
             }
