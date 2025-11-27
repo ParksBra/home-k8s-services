@@ -54,6 +54,11 @@ pipeline {
             defaultValue: false,
             description: 'Enable Terraform destroy instead of apply'
         )
+        booleanParam(
+            name: 'RESET_TF_STATE',
+            defaultValue: false,
+            description: 'Reset Terraform state before applying changes. Only use if cluster has been reset.'
+        )
         credentials(
             name: 'CONTROLLER_SSH_KEY',
             credentialType: 'com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey',
@@ -116,6 +121,18 @@ pipeline {
                             unstable("Allowing to proceed on non-main branch.")
                         }
                     }
+                }
+            }
+        }
+        stage('reset-terraform-state') {
+            when {
+                expression { return params.RESET_TF_STATE.toBoolean() }
+            }
+            steps {
+                echo 'Resetting Terraform state...'
+                script {
+                    sh "rm -rf ${WORKSPACE}/terraform/.terraform/"
+                    sh "rm -f ${WORKSPACE}/terraform/terraform.tfstate"
                 }
             }
         }
