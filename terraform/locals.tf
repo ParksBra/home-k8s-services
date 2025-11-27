@@ -18,6 +18,7 @@ locals {
 
 locals {
   cert_manager_namespace_name = "cert-manager"
+  kubernetes_dashboard_namespace_name = "kubernetes-dashboard"
 }
 
 locals {
