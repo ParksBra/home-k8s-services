@@ -153,7 +153,7 @@ pipeline {
                     }
                     echo 'Terraform init...'
                     script {
-                        sh "terraform -chdir='${WORKSPACE}/terraform' init -no-color"
+                        sh "terraform -chdir='${WORKSPACE}/terraform' init -no-color -upgrade"
                     }
                     echo 'Terraform plan destroy...'
                     script {
@@ -181,7 +181,7 @@ pipeline {
                     }
                     echo 'Terraform init...'
                     script {
-                        sh "terraform -chdir='${WORKSPACE}/terraform' init -no-color"
+                        sh "terraform -chdir='${WORKSPACE}/terraform' init -no-color -upgrade"
                     }
                     echo 'Terraform plan...'
                     script {
