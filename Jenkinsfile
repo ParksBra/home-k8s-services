@@ -162,7 +162,7 @@ pipeline {
                     input message: "Approve destroy?"
                     echo 'Terraform destroy...'
                     script {
-                        sh "terraform -chdir='${WORKSPACE}/terraform' destroy -no-color -auto-approve terraform.tfplan"
+                        sh "terraform -chdir='${WORKSPACE}/terraform' apply -no-color terraform.tfplan"
                     }
                 }
             }
