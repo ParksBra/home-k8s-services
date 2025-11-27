@@ -8,6 +8,12 @@ locals {
   zigbee2mqtt_storage_size_gb = 8
 
   chart_linting_enabled = false
+
+  homeassistant_trusted_proxies = [
+    "127.0.0.0/8",
+    "10.244.0.0/16",
+    "10.96.0.0/12"
+  ]
 }
 
 locals {
