@@ -12,6 +12,8 @@ module "homeassistant_environment" {
   mosquitto_admin_username = local.mosquitto_admin_username
   mosquitto_admin_password = data.infisical_secrets.environment.secrets[local.mosquitto_admin_password_secret_name].value
 
+  homeassistant_trusted_proxies = local.homeassistant_trusted_proxies
+
   acme_email = data.infisical_secrets.environment.secrets[local.acme_email_secret_name].value
   cloudflare_email = data.infisical_secrets.environment.secrets[local.cloudflare_email_secret_name].value
   cloudflare_api_token = data.infisical_secrets.environment.secrets[local.cloudflare_api_token_secret_name].value
