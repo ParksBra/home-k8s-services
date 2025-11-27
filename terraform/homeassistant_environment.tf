@@ -1,6 +1,8 @@
 module "homeassistant_environment" {
   source = "github.com/ParksBra/home-k8s-tf-lib//modules/homeassistant_environment?ref=initial_development"
 
+  chart_linting_enabled = local.chart_linting_enabled
+
   python_executable = var.python_executable
 
   namespace = local.homeassistant_environment_namespace

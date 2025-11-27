@@ -6,6 +6,8 @@ locals {
   homeassistant_storage_size_gb = 32
   mosquitto_storage_size_gb = 8
   zigbee2mqtt_storage_size_gb = 8
+
+  chart_linting_enabled = false
 }
 
 locals {
