@@ -7,7 +7,7 @@ locals {
   mosquitto_storage_size_gb = 8
   zigbee2mqtt_storage_size_gb = 8
 
-  chart_linting_enabled = false
+  chart_linting_enabled = true
 
   homeassistant_trusted_proxies = [
     "127.0.0.0/8",
