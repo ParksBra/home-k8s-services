@@ -17,6 +17,10 @@ locals {
 }
 
 locals {
+  cert_manager_namespace_name = "cert-manager"
+}
+
+locals {
   mosquitto_admin_username = "admin"
   mosquitto_admin_password_secret_name = "mosquitto-account-password"
 
