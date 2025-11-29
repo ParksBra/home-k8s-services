@@ -30,7 +30,7 @@ variable "infisical_project_id" {
   type        = string
 }
 
-variable "infisical_environment" {
-  description = "The Infisical Environment"
+variable "infisical_environment_slug" {
+  description = "The Infisical Environment Slug"
   type        = string
 }
