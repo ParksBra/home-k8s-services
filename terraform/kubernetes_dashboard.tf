@@ -7,10 +7,10 @@ module "kubernetes_dashboard" {
   namespace = local.kubernetes_dashboard_namespace_name
   create_namespace = true
 
-  chart_linting_enabled = local.chart_linting_enabled
+  chart_linting_enabled = local.kubernetes_dashboard_chart_linting_enabled
 
   ingress_enabled = true
-  ingress_class_name = local.ingress_class_name
+  ingress_class_name = local.kubernetes_dashboard_ingress_class_name
   ingress_annotations = {
     "cert-manager.io/cluster-issuer" = module.cert_manager.cluster_issuer_name
   }

@@ -4,7 +4,7 @@ module "homeassistant_environment" {
   ]
   source = "github.com/ParksBra/home-k8s-tf-lib//modules/homeassistant_environment?ref=main"
 
-  chart_linting_enabled = local.chart_linting_enabled
+  chart_linting_enabled = local.haenv_chart_linting_enabled
 
   python_executable = var.python_executable
 

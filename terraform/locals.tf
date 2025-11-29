@@ -21,6 +21,8 @@ locals {
 locals {
   # Kubernetes Dashboard configuration
   kubernetes_dashboard_namespace_name = "kubernetes-dashboard"
+  kubernetes_dashboard_ingress_class_name = "nginx"
+  kubernetes_dashboard_chart_linting_enabled = true
 }
 
 locals {
