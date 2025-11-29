@@ -1,5 +1,5 @@
 module "cert_manager" {
-  source = "github.com/ParksBra/home-k8s-tf-lib//modules/cert_manager?ref=${local.cert_manager_branch_ref}"
+  source = "github.com/ParksBra/home-k8s-tf-lib//modules/cert_manager?ref=main"
 
   namespace = local.cert_manager_namespace_name
   create_namespace = true

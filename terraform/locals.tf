@@ -10,8 +10,6 @@ locals {
 
 locals {
   # Cert-Manager configuration
-  cert_manager_branch_ref = "main"
-
   cert_manager_namespace_name = "cert-manager"
 
   cert_manager_acme_email_infisical_secret_name = "cloudflare-email"
@@ -27,8 +25,6 @@ locals {
 
 locals {
   # Homeassistant environment configuration
-  haenv_branch_ref = "main"
-
   haenv_namespace_name = "home-assistant"
   haenv_ingress_class_name = "nginx"
   haenv_homeassistant_storage_size_gb = 32

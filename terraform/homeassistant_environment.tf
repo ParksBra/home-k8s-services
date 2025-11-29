@@ -2,7 +2,7 @@ module "homeassistant_environment" {
   depends_on = [
     module.cert_manager
   ]
-  source = "github.com/ParksBra/home-k8s-tf-lib//modules/homeassistant_environment?ref=${local.haenv_branch_ref}"
+  source = "github.com/ParksBra/home-k8s-tf-lib//modules/homeassistant_environment?ref=main"
 
   chart_linting_enabled = local.chart_linting_enabled
 
