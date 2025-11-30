@@ -33,7 +33,7 @@ locals {
   haenv_mosquitto_storage_size_gb = 8
   haenv_zigbee2mqtt_storage_size_gb = 8
 
-  haenv_chart_linting_enabled = true
+  haenv_chart_linting_enabled = false
 
   haenv_ingress_annotations = {
     "cert-manager.io/cluster-issuer" = module.cert_manager.cluster_issuer_name
